@@ -24,10 +24,12 @@ class BrandController extends Controller
     public function getFrontData($slug){
         $brand = $this->brandRepo->findBySlug($slug);
         $services = $this->formatService($brand->services());
-        $experience = $this->formatExperience($brand->experience());
+        $experience = $this->formatMeta($brand->settingMeta('experience'));
+        $banner = $this->formatMeta($brand->settingMeta('banner'));
         return response()->json([
             'status' => 'success',
             'brand' => new BrandResource($brand),
+            'banner' => $banner,
             'experience' => $experience,
             'services' => $services,
         ]);
@@ -45,7 +47,7 @@ class BrandController extends Controller
         return $new_services;
     }
 
-    private function formatExperience($experience){
+    private function formatMeta($experience){
         return [
             'message' => $experience->value,
             'image' => $experience->image ? asset($experience->image->getUrl()) : null,

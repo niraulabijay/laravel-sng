@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label for="price">Base Price ($)</label>
-                                            <input type="text" name="base_price" value="{{ $editRoomType->base_price_format() ?? 0 }}" class="form-control number-only" id="price" placeholder="Starting price of room">
+                                            <input type="text" name="base_price" value="{{ isset($editRoomType) ? $editRoomType->base_price_format() : 0 }}" class="form-control number-only" id="price" placeholder="Starting price of room">
                                             @error('base_price')
                                                 <div class="text-danger" role="alert">
                                                     {{ $message }}

@@ -78,7 +78,9 @@ class Brand extends Model implements HasMedia
     //Brand front page experience
     public function experience(){
         $experience = $this->brandSettings->where('key','experience')->first();
-        $experience->image = $experience->hasMedia('image') ? $experience->image() : null;
+        if($experience){
+            $experience->image = $experience->hasMedia('image') ? $experience->image() : null;
+        }
         return $experience;
     }
     //Brand front page banner

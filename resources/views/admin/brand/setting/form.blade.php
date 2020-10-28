@@ -120,9 +120,9 @@
     @include('admin.brand.setting.multipleService')
 
 
-    @if($brand->experience()->image)
+    @if($brand->settingMeta('experience') && $brand->settingMeta('experience')->image)
         <script>
-            var importedBaseImage = "{{ $brand->experience()->image->getUrl('thumbnail') }}"
+            var importedBaseImage = "{{ $brand->settingMeta('experience')->image->getUrl('thumbnail') }}"
             var experienceUpload = new FileUploadWithPreview('experience-image', {
                 images: {
                         baseImage: importedBaseImage,
@@ -135,7 +135,7 @@
         </script>
     @endif
 
-    @if($brand->settingMeta('banner'))
+    @if($brand->settingMeta('banner') && $brand->settingMeta('banner')->image)
         <script>
             var importedBaseImage = "{{ $brand->settingMeta('banner')->image()->getUrl('thumbnail') }}"
             var experienceUpload = new FileUploadWithPreview('banner-image', {

@@ -152,7 +152,7 @@
 
     <script src="{{ asset('cork/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
 
-    {{-- <script>
+    <script>
         //First upload .
         @if(isset($editBrand) && $editBrand->hasMedia('brand_logo'))
             var importedBaseImage = "{{ isset($editBrand)? $editBrand->logo()->getUrl() : ''}}"
@@ -164,7 +164,7 @@
         @else
             var firstUpload = new FileUploadWithPreview('myFirstImage')
         @endif
-    </script> --}}
+    </script>
 
 
 @endpush

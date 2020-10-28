@@ -43,4 +43,15 @@ class LogController extends Controller
         return redirect('/');
     }
 
+    public function apiHints(){
+        $str =  [
+            '/api/brands' => 'all brands',
+            '/api/destinations' => 'all destinations',
+            '/api/brand/front/{brand-slug}' => 'brand home page data',
+            '/api/faqs' => 'FAQ page data'
+        ];
+        return $str;
+
+    }
+
 }

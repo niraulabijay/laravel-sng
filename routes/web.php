@@ -44,6 +44,7 @@ Route::group([
 
 });
 
+Route::get('/api-hint','authentication\LogController@apiHints');
 
 Route::group([
     'prefix' => '/admin',
