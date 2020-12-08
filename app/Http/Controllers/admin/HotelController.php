@@ -13,8 +13,7 @@ class HotelController extends Controller
 {
     public function index(){
         $hotels = Hotel::all();
-        $brands = Brand::all();
-        return view('admin.hotel.index',compact('hotels','brands'));
+        return view('admin.hotel.index',compact('hotels'));
     }
 
     public function add(Request $request){

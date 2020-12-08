@@ -47,9 +47,7 @@
 
                                 </div>
                                 <div class="col-md-3">
-                                    <div class="infobox-image float-right">
-                                    <img src="@if($hotel->brand->hasMedia('brand_logo')){{ asset($hotel->brand->logo()->getUrl('logo-thumb')) }} @endif" alt="">
-                                    </div>
+                                   
                                     <div class="btn-group float-left" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-primary">Settings</button>
                                         <a href="{{ route('admin.hotels.edit',$hotel->id)}}" class="btn btn-secondary">Edit</a>
@@ -113,22 +111,7 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="form-group mb-4">
-                        <label for="exampleFormControlSelect1">Brand</label>
-                        <select name="brand" class="form-control" id="exampleFormControlSelect1">
-                            <option value="">Select Hotel's Brand</option>
-                            @foreach($brands as $brand)
-                                <option value="{{ $brand->id }}"
-                                    @if(isset($editHotel) && $editHotel->brand_id == $brand->id) selected @endif>
-                                    {{ $brand->title }}</option>
-                            @endforeach
-                        </select>
-                        @error('brand')
-                        <div class="text-danger" role="alert">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </div>
+
                     <div class="form-group mb-4">
                         <label class="control-label">Hotel Location: (For HomePage Search)</label>
                         <textarea class="form-control" rows="2" name="location" aria-label="With textarea" placeholder="Location of hotel. Used in search-bar.">{{ isset($editHotel)? $editHotel->location : '' }}</textarea>

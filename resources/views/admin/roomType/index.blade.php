@@ -55,7 +55,7 @@
                                     {{$hotel->title}} - Room Types&nbsp;<i data-feather="home"></i>
                                     <a href="{{ route('admin.roomType.add',$hotel->slug) }}" class="btn btn-success btn-md float-right">Add New</a>
                                 </h3>
-                                <span><strong>The room type includes information as to the number of beds, price and more. One or more units can be added for each room type.</strong></span>
+                                <span><strong>The room type includes information as to the number of beds, prices and more. One or more units can be added for each room type.</strong></span>
                                 <hr class="divider">
 
                                 @if($hotel->roomTypes->count() > 0)
@@ -74,7 +74,7 @@
                                                             </button>
                                                         </div>
                                                         <div>
-                                                            <img src="{{$roomType->featureImage()->getUrl('thumbnail') }}" style="height: 150px; width:auto;" alt="Room Type Feature Image">
+                                                            <img src="{{ asset($roomType->featureImage()->getUrl('thumbnail')) }}" style="height: 150px; width:auto;" alt="Room Type Feature Image">
                                                         </div>
                                                         <div class="card-text">
                                                             {{$roomType->description}}
