@@ -44,42 +44,63 @@
 
 
             <li class="menu single-menu">
-                <a href="#uiKit" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <a href="#">
                     <div class="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                        <span>UI Kit</span>
+                        <span>Room Prices</span>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </a>
-            </li>
-
-            <li class="menu single-menu">
-                <a href="#tables" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-                        <span>Tables</span>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </a>
-            </li>
-
-            <li class="menu single-menu">
-                <a href="#forms" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                        <span>Forms</span>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </a>
             </li>
 
             <li class="menu single-menu">
                 <a href="{{ route('admin.roomType') }}" >
                     <div class="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                        <span>Room Type</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layout"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                        <span>Room Types</span>
                     </div>
                 </a>
+            </li>
+
+            <li class="menu single-menu">
+                <a href="#postTypeAll" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clipboard"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                        <span>CMS</span>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="postTypeAll" data-parent="#accordionExample">
+                    @foreach(getPostTypes() as $sidePostType)
+                        <li class="menu">
+                            <a href="#{{ $sidePostType->slug }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                <div class="">
+                                    {!! $sidePostType->icon !!}
+                                    <span>{{ $sidePostType->title }}</span>
+                                </div>
+                                <div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </div>
+                            </a>
+                            <ul class="collapse submenu list-unstyled" id="{{ $sidePostType->slug }}" data-parent="#accordionExample">
+                                <li>
+                                    <a href="{{ route('admin.post',  $sidePostType->slug) }}"> All {{ $sidePostType->title }} </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.post.create',  $sidePostType->slug) }}"> Add New  </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.post.trash',  $sidePostType->slug) }}"> Trash  </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.post.log',  $sidePostType->slug) }}"> Log  </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('admin.post.order',  $sidePostType->slug) }}"> Order  </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endforeach
+                </ul>
             </li>
 
             <li class="menu single-menu">
@@ -91,28 +112,86 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                 </a>
                 <ul class="collapse submenu list-unstyled" id="more" data-parent="#topAccordion">
+
                     <li>
-                    <a href="{{ route('admin.hotels') }}">Hotel</a>
+                        <a href="{{ route('admin.amenities') }}">Amenities</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.brands') }}">Brand</a>
+                        <a href="{{ route('admin.faqs') }}">Faqs</a>
                     </li>
+                    {{--<li class="sub-sub-submenu-list">--}}
+                        {{--<a href="#starter-kit" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> Site Settings <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>--}}
+                        {{--<ul class="collapse list-unstyled sub-submenu eq-animated eq-fadeInUp" id="starter-kit" data-parent="#more">--}}
+                            {{----}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                </ul>
+            </li>
+
+            <li class="menu single-menu">
+                <a href="#superadmin" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                        <span>Admin</span>
+                    </div>
+                </a>
+                <ul class="collapse submenu list-unstyled" id="superadmin" data-parent="#accordionExample">
                     <li class="sub-sub-submenu-list">
-                        <a href="#starter-kit" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"> Site Settings <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg> </a>
-                        <ul class="collapse list-unstyled sub-submenu eq-animated eq-fadeInUp" id="starter-kit" data-parent="#more">
+                        <a href="#postType" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Post Type</a>
+                        <ul class="collapse sub-submenu  eq-animated eq-fadeInUp" id="postType" data-parent="#accordionExample">
                             <li>
-                                <a href="{{ route('admin.amenities') }}">Amenities</a>
+                                <a href="{{ route('admin.post_type') }}"> All Post Types </a>
                             </li>
                             <li>
-                                <a href="{{ route('admin.faqs') }}">Faqs</a>
+                                <a href="{{ route('admin.post_type.create') }}"> Add New  </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.post_type.order') }}"> Post Type Position  </a>
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="../../documentation/index.html"> Documentation </a>
+                    <li class="sub-sub-submenu-list">
+                        <a href="#customField" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Custom Field</a>
+                        <ul class="collapse sub-submenu  eq-animated eq-fadeInUp" id="customField" data-parent="#accordionExample">
+                            <li>
+                                <a href="{{ route('admin.custom_field') }}"> All Custom Field </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.custom_field.create') }}"> Add New  </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.post_type.order') }}"> Post Type Position  </a>
+                            </li>
+                        </ul>
                     </li>
+
+                    {{-- <li class="menu">
+                        <a href="#customField" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <i class="fab fa-intercom"></i>
+                                <span>Custom Field</span>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </a>
+                        <ul class="collapse submenu list-unstyled" id="customField" data-parent="#accordionExample">
+                            <li>
+                                <a href="{{ route('admin.custom_field') }}"> All Custom Field </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.custom_field.create') }}"> Add New  </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('admin.post_type.order') }}"> Post Type Position  </a>
+                            </li>
+                        </ul>
+                    </li> --}}
                 </ul>
             </li>
+
+
+
         </ul>
     </nav>
 </div>

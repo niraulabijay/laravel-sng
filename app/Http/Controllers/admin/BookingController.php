@@ -103,6 +103,7 @@ class BookingController extends Controller
 
     public function finalize(CreateBooking $request){
         $validated = $request->validated();
+        dd($validated['guests']);
         try{
             $user = $this->userRepo->findByEmail($validated['email']);
             if(!$user){
@@ -113,7 +114,6 @@ class BookingController extends Controller
                 ]);
             }
             $booking = $this->bookingRepo->adminBooking($user, $validated);
-            dd($booking);
         }catch(\Exception $e){
             return response()->json($e->getMessage(),400);
         }
