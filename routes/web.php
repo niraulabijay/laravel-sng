@@ -186,6 +186,10 @@ Route::group([
 
     //Amenities Crud
     Route::get('/amenities','AmenityController@index')->name('amenities');
+    Route::post('/amenities','AmenityController@store')->name('amenity.store');
+    Route::get('/amenity/{slug}','AmenityController@edit')->name('amenity.edit');
+    Route::post('/amenity/{slug}','AmenityController@update')->name('amenity.update');
+    Route::get('/amenity/delete/{id}','AmenityController@delete')->name('amenity.delete');
 
     //Inclusions Crud
     Route::get('/inclusions','InclusionController@index')->name('inclusions');
@@ -195,4 +199,9 @@ Route::group([
     Route::post('/booking/checkAvailable','BookingController@checkAvailable')->name('booking.checkAvailable');
     Route::post('/booking/proceed','BookingController@proceedBooking')->name('booking.proceedBooking');
     Route::post('/booking/new','BookingController@finalize')->name('booking.finalize');
+
+    Route::get('/booking/all','BookingController@preview')->name('booking.preview');
+    Route::post('/booking/all','BookingController@searchBookings')->name('booking.search');
+    
+
 });

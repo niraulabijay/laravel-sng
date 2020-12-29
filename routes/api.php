@@ -27,11 +27,20 @@ Route::group([
 //    Route::get('user', 'UserController@index');
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
-    Route::get('/brands','BrandController@getBrands');
-    Route::get('/brand/front/{slug}','BrandController@getFrontData');
-    Route::get('/destinations','FrontController@destinations');
+    // Route::get('/brands','BrandController@getBrands');
+    // Route::get('/brand/front/{slug}','BrandController@getFrontData');
+    // Route::get('/destinations','FrontController@destinations');
     Route::get('/faqs','FrontController@faqs');
 
+
+
+    Route::get('/packages','CmsController@packages');
+    Route::get('/video-gallery','CmsController@videoGallery');
+    Route::get('/restaurant','CmsController@restaurant');
+    Route::get('/teams','CmsController@teams');
+
+    //Booking
+    Route::post('/booking','BookingController@search');
 
     Route::group([
         'middleware' => 'jwt-auth'

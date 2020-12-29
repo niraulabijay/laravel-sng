@@ -97,7 +97,7 @@
 
                                 <div class="form-group">
                                     <p> Description</p>
-                                   <textarea name="description">{{ old('description') }}</textarea>
+                                   <textarea name="description" class="summernote">{{ old('description') }}</textarea>
                                 </div>
 
 

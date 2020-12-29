@@ -45,4 +45,12 @@ class GobalPost extends Model
     public function postMetas(){
         return $this->hasMany(GobalPostMeta::class, 'gobal_post_id');
     }
+
+    public function seoable(){
+        return $this->morphOne(SeoContent::class,'seoable');
+    }
+
+    public function postType(){
+        return $this->belongsTo(PostType::class,'post_type','id');
+    }
 }

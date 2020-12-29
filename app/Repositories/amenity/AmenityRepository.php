@@ -13,6 +13,10 @@ class AmenityRepository implements AmenityInterface
         return Amenity::all();
     }
 
+    public function getActive(){
+        return Amenity::where('status','Active')->get();
+    }
+
     public function findById($id){
         return Amenity::find($id);
     }

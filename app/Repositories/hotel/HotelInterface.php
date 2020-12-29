@@ -15,6 +15,8 @@ interface HotelInterface
 
     public function getAuthHotel();
 
+    public function getActiveHotels();
+
     public function activeRoomTypes($hotel);
 
 }

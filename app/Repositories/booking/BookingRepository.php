@@ -39,7 +39,8 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         $checkIn = $data['checkIn'];
         $checkOut = $data['checkOut'];
         $rooms = Room::whereHas('bookings', function ($q) use ($checkIn, $checkOut) {
-            $q->where(function ($q2) use ($checkIn, $checkOut) {
+            $q->where('status','!=',Booking::STATUS_CANCELLED)
+              ->where(function ($q2) use ($checkIn, $checkOut) {
                 $q2->where('check_in', '>=', $checkOut)
                    ->orWhere('check_out', '<=', $checkIn);
             });
@@ -83,6 +84,27 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
             'value' => $booking->value,
             'created_at'=> $booking->created_at->diffForHumans(),
         ];
+    }
+
+    public function getFilterData($params){
+        $bookings = Booking::query();
+        $bookings = $bookings->where('created_at','>',$params['startDate'])
+            ->where('created_at','<=',$params['endDate']);
+        if(count($params['roomTypes']) > 0){
+            $roomTypes = RoomType::whereIn('id',$params['roomTypes'])->get();
+            $rooms = Room::whereIn('room_type_id',$roomTypes->pluck('id')->toArray() ?? [])->get();
+            // return $rooms;
+            $booking = $bookings->whereHas('bookingDetails', function ($query) use($rooms) {
+                foreach($rooms as $room){
+                    $query->where('room_id', $room->id);
+                }
+            });
+            with(['bookingDetails' => function ($query) use ($rooms) {
+                $query->whereIn('room_id',$rooms->pluck('id')->toArray() ?? []);
+            }]);
+        }
+        $bookings = $bookings->get();
+        return $bookings;
     }
 
 }

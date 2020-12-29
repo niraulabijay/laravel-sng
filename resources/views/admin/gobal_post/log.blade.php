@@ -9,91 +9,83 @@
 
 @endpush
 
-@section('contents')
+@section('content')
 
-    <div class="layout-px-spacing">
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+        <div class="statbox widget box box-shadow mb-3">
+            <div class="widget-header">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h4>{{ $postType->title }} Logs</h4>
 
-        <div class="row layout-top-spacing">
-
-            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                <div class="statbox widget box box-shadow mb-3">
-                    <div class="widget-header">
-                        <div class="row">
-                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                <h4>{{ $postType->title }} Logs</h4>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="widget-content widget-content-area text-center">
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <nav class="breadcrumb-two" aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                                        <li class="breadcrumb-item active"><a href="{{ route('admin.post', $postType->slug) }}">{{ $postType->title }}</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Logs</a></li>
-                                    </ol>
-                                </nav>
-                            </div>
-                            <div class="col-sm-6">
-                                <a href="{{ route('admin.post.create', $postType->slug) }}" class="btn btn-sm btn-success float-right">Add New {{ $postType->title }} </a>
-
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="widget-content widget-content-area br-6">
-                    <div class="table-responsive mb-4 mt-4">
-                        <table id="zero-config" class="table table-hover" style="width:100%">
-                            <thead>
-                            <tr>
-                                <th>Sn</th>
-                                <th>Type</th>
-                                <th>Cuser By</th>
-                                <th>Title</th>
-                                <th>Modify Date</th>
-                                <th class="no-content">Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($activityLogs as $activityLog)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $activityLog->description }}</td>
-                                <td> {{ $activityLog->cuser_id }}</td>
-                                <td>{{ $activityLog->getExtraProperty('attributes')['title'] }}</td>
-                                <td>{{ $activityLog->updated_at->format('Y-m-d') }}</td>
-
-                                <td>
-
-                                    <a href="" title="Viev" class="badge badge-success"><i data-feather="eye"></i></a>
-
-                                </td>
-                            </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                            <tr>
-                                <th>Sn</th>
-                                <th>Type</th>
-                                <th>Cuser By</th>
-                                <th>Title</th>
-                                <th>Modify Date</th>
-                                <th class="no-content">Action</th>
-                            </tr>
-                            </tr>
-                            </tfoot>
-                        </table>
                     </div>
                 </div>
             </div>
+            <div class="widget-content widget-content-area text-center">
 
+                <div class="row">
+                    <div class="col-sm-6">
+                        <nav class="breadcrumb-two" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
+                                <li class="breadcrumb-item active"><a href="{{ route('admin.post', $postType->slug) }}">{{ $postType->title }}</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Logs</a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="{{ route('admin.post.create', $postType->slug) }}" class="btn btn-sm btn-success float-right">Add New {{ $postType->title }} </a>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
+        <div class="widget-content widget-content-area br-6">
+            <div class="table-responsive mb-4 mt-4">
+                <table id="zero-config" class="table table-hover" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Sn</th>
+                        <th>Type</th>
+                        <th>Cuser By</th>
+                        <th>Title</th>
+                        <th>Modify Date</th>
+                        <th class="no-content">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($activityLogs as $activityLog)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $activityLog->description }}</td>
+                        <td> {{ $activityLog->cuser_id }}</td>
+                        <td>{{ $activityLog->getExtraProperty('attributes')['title'] }}</td>
+                        <td>{{ $activityLog->updated_at->format('Y-m-d') }}</td>
 
+                        <td>
+
+                            <a href="" title="Viev" class="badge badge-success"><i data-feather="eye"></i></a>
+
+                        </td>
+                    </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                    <tr>
+                        <th>Sn</th>
+                        <th>Type</th>
+                        <th>Cuser By</th>
+                        <th>Title</th>
+                        <th>Modify Date</th>
+                        <th class="no-content">Action</th>
+                    </tr>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
     </div>
 
 @endsection

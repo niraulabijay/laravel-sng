@@ -9,7 +9,7 @@
 </style>
 @endpush
 
-@section('contents')
+@section('content')
 
     <div class="layout-px-spacing">
 

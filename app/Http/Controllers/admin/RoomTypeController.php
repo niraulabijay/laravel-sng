@@ -6,6 +6,9 @@ use App\Model\Hotel;
 use App\Http\Controllers\Controller;
 use App\Model\Room;
 use App\Model\RoomType;
+use App\Repositories\amenity\AmenityInterface;
+use App\Repositories\hotel\HotelInterface;
+use App\Repositories\roomType\RoomTypeInterface;
 use App\tableList;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
@@ -13,14 +16,22 @@ use Illuminate\Support\Facades\Validator;
 
 class RoomTypeController extends Controller
 {
+    protected $roomType, $hotel, $amenity;
+    public function __construct(RoomTypeInterface $roomtype, HotelInterface $hotel, AmenityInterface $amenity)
+    {
+        $this->roomType = $roomtype;
+        $this->hotel = $hotel;
+        $this->amenity = $amenity;
+    }
     public function index(){
-        $hotels = Hotel::where('status','Active')->get();
+        $hotels = $this->hotel->getActiveHotels();
         return view('admin.roomType.index',compact('hotels'));
     }
     public function add($hotelSlug){
         try{
             $hotel = Hotel::where('slug',$hotelSlug)->first();
-            return view('admin.roomType.add',compact('hotel'));
+            $amenities = $this->amenity->getActive();
+            return view('admin.roomType.add',compact('hotel','amenities'));
         }catch(\Exception $e){
             Toastr::error($e->getMessage(),'Server Error');
             return redirect()->back();
@@ -47,6 +58,10 @@ class RoomTypeController extends Controller
             $roomType->status = $request->status == "on" ? "Active" : "Inactive";
             $roomType->save();
 
+            if($request->amenities){
+                $roomType->amenities()->attach($request->amenities);
+            }
+
             if($request->hasFile('feature_image')){
                 $roomType->addMediaFromRequest('feature_image')
                     ->toMediaCollection('feature_image');
@@ -64,11 +79,12 @@ class RoomTypeController extends Controller
     public function edit(Request $request, $slug){
         $editRoomType = RoomType::where('slug',$slug)->first();
         $hotel = $editRoomType->hotel;
+        $amenities = $this->amenity->getActive();
         if(!$editRoomType){
             Toastr::error('Data not found','Operation Failed');
             return redirect()->route('admin.roomType');
         }
-        return view('admin.roomType.add',compact('hotel','editRoomType'));
+        return view('admin.roomType.add',compact('hotel','editRoomType','amenities'));
     }
 
     public function update(Request $request, $slug){
@@ -88,6 +104,8 @@ class RoomTypeController extends Controller
             $roomType->base_price = $request->base_price*100;
             $roomType->status = $request->status == "on" ? "Active" : "Inactive";
             $roomType->update();
+
+            $roomType->amenities()->sync($request->amenities ?? []);
 
             if($request->hasFile('feature_image')){
                 $roomType->addMediaFromRequest('feature_image')

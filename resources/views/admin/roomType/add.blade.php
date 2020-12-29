@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('cork/assets/css/forms/switches.css') }}">
     <link href="{{ asset('cork/plugins/file-upload/file-upload-with-preview.min.css') }}" rel="stylesheet" type="text/css" />
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('cork/plugins/select2/select2.min.css') }}">
 
 @endpush
 
@@ -91,6 +92,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 mt-3">
+                            <div class="card card-component-1">
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-12">
+                                            <label for="amenities">Amenities</label>
+                                            <select name="amenities[]" class="form-contro basic" multiple>
+                                                @foreach($amenities as $amenity)
+                                                    <option value="{{$amenity->id}}"
+                                                        @if(isset($editRoomType) && $editRoomType->amenities)
+                                                            @foreach($editRoomType->amenities as $sel_am)
+                                                                {{ $sel_am->id == $amenity->id ? "selected" : "" }}
+                                                            @endforeach
+                                                        @endif
+                                                        >
+                                                        {{$amenity->title}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -142,6 +167,14 @@
 
     <script src="{{ asset('cork/plugins/file-upload/file-upload-with-preview.min.js') }}"></script>
 
+    <script src="{{ asset('cork/plugins/select2/select2.min.js')}}"></script>
+    <script src="{{ asset('cork/plugins/select2/custom-select2.js') }}"></script>
+
+    <script>
+        var ss = $(".basic").select2({
+            tags: true,
+        });
+    </script>
     <script>
         //First upload .
         @if(isset($editRoomType) && $editRoomType->hasMedia('feature_image'))

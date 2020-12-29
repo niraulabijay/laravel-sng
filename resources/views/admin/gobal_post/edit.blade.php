@@ -1,4 +1,4 @@
-@extends('admin.partials.master')
+@extends('admin.layouts.master')
 
 @push('styles')
 <link href="{{ asset('cork/plugins/select2/select2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -8,7 +8,7 @@
 @endpush
 
 
-@section('contents')
+@section('content')
 
     <div class="layout-px-spacing">
 
@@ -64,7 +64,7 @@
                                         @if($postType->editor == 1)
                                             <div class="form-group">
                                                 <p> Description</p>
-                                                <textarea name="description">{{ old('description') ?? $post->post_content  }}</textarea>
+                                                <textarea name="description" class="summernote">{{ old('description') ?? $post->post_content  }}</textarea>
                                             </div>
                                         @endif
 
@@ -110,14 +110,14 @@
                                             <div class="form-group">
                                                 <p>Image Alt Text</p>
                                                 <label for="t-text" class="sr-only">Image Alt Text</label>
-                                                <input id="post_type_title" value="{{ old('img_alt')??$post->seoable->img_alt }}" type="text" name="img_alt" placeholder="Image Alt Text" class="form-control">
+                                                <input id="post_type_title" value="{{ old('img_alt')?? ($post->seoable->img_alt ?? '') }}" type="text" name="img_alt" placeholder="Image Alt Text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <p>Image Title</p>
                                                 <label for="t-text" class="sr-only">Image Title</label>
-                                                <input id="post_type_title" value="{{ old('img_title')??$post->seoable->img_title }}" type="text" name="img_title" placeholder="Image Title" class="form-control">
+                                                <input id="post_type_title" value="{{ old('img_title') ?? ($post->seoable->img_title ?? '') }}" type="text" name="img_title" placeholder="Image Title" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -135,7 +135,7 @@
 
                                 <div class="form-group">
                                     <p>Meta Description</p>
-                                    <textarea name="meta_description">{{ old('meta_description')??$post->seoable->meta_description }}</textarea>
+                                    <textarea name="meta_description" class="summernote">{{ old('meta_description') ?? ($post->seoable->meta_description ?? '') }}</textarea>
                                 </div>
                             </form>
                         </div>

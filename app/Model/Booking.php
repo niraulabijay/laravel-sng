@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -29,10 +30,10 @@ class Booking extends Model
     {
         return [
             self::STATUS_ACTIVE    => 'Active',
-            self::STATUS_CHECKIN => 'Suspended',
-            self::STATUS_CHECKOUT  => 'Inactive',
-            self::STATUS_CANCELLED  => 'Inactive',
-            self::STATUS_ABADONED  => 'Inactive'
+            self::STATUS_CHECKIN => 'Check In',
+            self::STATUS_CHECKOUT  => 'Check Out',
+            self::STATUS_CANCELLED  => 'Cancelled',
+            self::STATUS_ABADONED  => 'Abandoned'
         ];
     }
 
@@ -51,7 +52,7 @@ class Booking extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::Class,'user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function full_name(){

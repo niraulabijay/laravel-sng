@@ -8,6 +8,8 @@ interface AmenityInterface
 {
     public function getAll();
 
+    public function getActive();
+
     public function findById($id);
 
     public function findBySlug($slug);

@@ -50,8 +50,8 @@ class GlobalController extends Controller
     public function store(Request $request, $post_type)
     {
 
-
-        try{
+        // dd($request);
+        // try{
             $postType = PostType::where('slug', $post_type)->first();
             $post = new GobalPost();
             $post->title = $request->title;
@@ -75,9 +75,9 @@ class GlobalController extends Controller
                 }
             }
             return redirect()->back()->with('success', 'Post Successfully Created.');
-        }catch (\Exception $e){
-            return redirect()->back()->with('error', 'Error while Creating Post.');
-        }
+        // }catch (\Exception $e){
+        //     return redirect()->back()->with('error', 'Error while Creating Post.');
+        // }
 
     }
 
@@ -174,6 +174,9 @@ class GlobalController extends Controller
     }
 
     public function updatecreatefield($request, $post){
+
+
+        // dd($request);
 
         if (isset($request->custom_field['post_type'])) {
             $postfielddata = $request->custom_field['post_type'];

@@ -4,9 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBooking;
-use App\Model\Booking;
 use App\Model\Room;
-use App\Model\RoomType;
 use App\Repositories\booking\BookingInterface;
 use App\Repositories\hotel\HotelRepository;
 use App\Repositories\roomType\RoomTypeRepository;
@@ -103,7 +101,7 @@ class BookingController extends Controller
 
     public function finalize(CreateBooking $request){
         $validated = $request->validated();
-        dd($validated['guests']);
+        // dd($validated['guests']);
         try{
             $user = $this->userRepo->findByEmail($validated['email']);
             if(!$user){
@@ -117,5 +115,22 @@ class BookingController extends Controller
         }catch(\Exception $e){
             return response()->json($e->getMessage(),400);
         }
+    }
+
+    public function preview(){
+        $roomTypes = $this->roomTypeRepo->getAllActiveRoomTypes();
+        return view('admin.bookings.view.index', compact('roomTypes'));
+    }
+
+    public function searchBookings(Request $request){
+        // dd($request->roomTypes);
+        $params = [
+            'startDate' => $request->searchStart,
+            'endDate' => $request->searchEnd,
+            'roomTypes' => $request->roomTypes ?? [],
+        ];
+        $bookings = $this->bookingRepo->getFilterData($params);
+        $view = view('admin.bookings.view.table',compact('bookings','params'))->render();
+        return response()->json($view,200);
     }
 }

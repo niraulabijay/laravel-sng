@@ -15,4 +15,7 @@ interface BookingInterface{
 
     public function adminBooking($user, $array);
 
+    //Filter Booking in preview
+    public function getFilterData($params);
+
 }
