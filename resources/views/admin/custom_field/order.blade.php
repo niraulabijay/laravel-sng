@@ -1,4 +1,4 @@
-@extends('admin.partials.master')
+@extends('admin.layouts.master')
 
 @push('styles')
 
@@ -9,67 +9,59 @@
 </style>
 @endpush
 
-@section('contents')
+@section('content')
 
-    <div class="layout-px-spacing">
-
-        <div class="row layout-top-spacing">
-
-            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                <div class="widget-header">
-                    <div class="row">
-                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                            <h4>Post Type Ordering </h4>
-                        </div>
-                    </div>
+    <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+        <div class="widget-header">
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                    <h4>Post Type Ordering </h4>
                 </div>
-                @if(isset($customField->childrens))
-                <div class="widget-content widget-content-area br-6">
-                    <div class="table-responsive mb-4 mt-4">
-                        <table class="table table-hover" style="width:100%">
-                            <thead>
-                            <tr>
-                                <th>Sn</th>
-                                <th>Title</th>
-                                <th>Slug</th>
-                                <th>Position</th>
-                                <th>Type</th>
-                            </tr>
-                            </thead>
-                            <tbody class="row_position">
-                            @foreach($customField->childrens as $children)
-                                <tr id="{{ $children->id }}">
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $children->title }}</td>
-                                    <td>{{ $children->slug }}</td>
-                                    <td>{{ $children->position }}</td>
-                                    <td>{!! $children->field_type !!}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                            <tr>
-                                <th>Sn</th>
-                                <th>Title</th>
-                                <th>Slug</th>
-                                <th>Position</th>
-                                <th>Type</th>
-                            </tr>
-                            </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-                    <a href="{{ Request::url() }}" class="btn btn-sm btn-danger" id="order-btn">Reload..</a>
-                </div>
-                    @else
-                    Empty Fields
-                @endif
+            </div>
+        </div>
+        @if(isset($customField->childrens))
+        <div class="widget-content widget-content-area br-6">
+            <div class="table-responsive mb-4 mt-4">
+                <table class="table table-hover" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Sn</th>
+                        <th>Title</th>
+                        <th>Slug</th>
+                        <th>Position</th>
+                        <th>Type</th>
+                    </tr>
+                    </thead>
+                    <tbody class="row_position">
+                    @foreach($customField->childrens as $children)
+                        <tr id="{{ $children->id }}">
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $children->title }}</td>
+                            <td>{{ $children->slug }}</td>
+                            <td>{{ $children->position }}</td>
+                            <td>{!! $children->field_type !!}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                    <tr>
+                        <th>Sn</th>
+                        <th>Title</th>
+                        <th>Slug</th>
+                        <th>Position</th>
+                        <th>Type</th>
+                    </tr>
+                    </tr>
+                    </tfoot>
+                </table>
             </div>
 
+            <a href="{{ Request::url() }}" class="btn btn-sm btn-danger" id="order-btn">Reload..</a>
         </div>
-
+            @else
+            Empty Fields
+        @endif
     </div>
 
 @endsection

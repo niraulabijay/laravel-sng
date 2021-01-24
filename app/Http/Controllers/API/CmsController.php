@@ -25,15 +25,57 @@ class CmsController extends Controller
         $data = [];
         foreach($packages as $package){
             $data[] = [
+                'id' => $package->id,
+                'slug' => $package->slug,
                 'title' => $package->title,
-                'image' => $package->image,
+                'image' => $package->image ? asset($package->image) : null,
                 'description' => $package->post_content,
-                'duration' => $this->cms->getGlobalPostMetaByKey($package, 'duration') ?? null,
+                'duration' => $this->cms->getGlobalPostMetaByKey($package, 'duaration') ?? null,
                 'price' => $this->cms->getGlobalPostMetaByKey($package, 'price') ?? null,
                 'offer_price' => $this->cms->getGlobalPostMetaByKey($package, 'offer-price') ?? null,
             ];
         }
         return $data;
+    }
+
+    public function singlePackage($slug){
+        $postType = $this->cms->getGlobalPostTypeBySlug('packages');
+        $package = $this->cms->getGlobalPostSingleBySlug($postType, $slug);
+        return response()->json([
+            'status' => 'success',
+            'packages' => $this->formatSinglePackage($package)
+        ],200);
+    }
+
+    private function formatSinglePackage($package){
+        return [
+            'id' => $package->id,
+            'slug' => $package->slug,
+            'title' => $package->title,
+            'image' => $package->image,
+            'description' => $package->post_content,
+            'duration' => $this->cms->getGlobalPostMetaByKey($package, 'duration') ?? null,
+            'price' => $this->cms->getGlobalPostMetaByKey($package, 'price') ?? null,
+            'offer_price' => $this->cms->getGlobalPostMetaByKey($package, 'offer-price') ?? null,
+            'language' => $this->cms->getGlobalPostMetaByKey($package, 'language') ?? null,
+            'min-group-size' => $this->cms->getGlobalPostMetaByKey($package, 'min-group-size') ?? null,
+            'inclusions' => $this->getSingleValueRepeaterMeta($package, 'inclusions') ?? [],
+            'exclusions' => $this->getSingleValueRepeaterMeta($package, 'exclusions') ?? [],
+        ];
+    }
+
+    private function getSingleValueRepeaterMeta($post, $key){
+        $data = unserialize($this->cms->getGlobalPostMetaByKey($post, $key));
+        $values = [];
+        $data = array_values($data);
+        if($data) {
+            foreach ($data as $key=>$val) {
+                foreach($val as $k=>$v)
+                    $values[] = $v;
+            }
+            return $values;
+        }
+     return null;
     }
 
     public function videoGallery(){
@@ -81,7 +123,7 @@ class CmsController extends Controller
             $data[] = [
                 'title' => $food->title,
                 'description' => $food->post_content,
-                'image' => $food->image,
+                'image' => $food->image ? asset($food->image) : null,
                 'price' => $this->cms->getGlobalPostMetaByKey($food,'price')
             ];
         }
@@ -93,7 +135,9 @@ class CmsController extends Controller
         foreach($categories as $category){
             $data[] = [
                 'title' => $category->title,
+                'slug' => $category->slug,
                 'description' => $category->post_content,
+                'image' => $category->image ? asset($category->image) : null,
                 'foods' => $category->foods ?? []
             ];
         }

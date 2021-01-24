@@ -35,17 +35,40 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     }
 
     public function availableRooms($data = []){
-        // dd($roomType);
         $checkIn = $data['checkIn'];
         $checkOut = $data['checkOut'];
-        $rooms = Room::whereHas('bookings', function ($q) use ($checkIn, $checkOut) {
-            $q->where('status','!=',Booking::STATUS_CANCELLED)
-              ->where(function ($q2) use ($checkIn, $checkOut) {
-                $q2->where('check_in', '>=', $checkOut)
-                   ->orWhere('check_out', '<=', $checkIn);
-            });
-        })->orWhereDoesntHave('bookings')->get();
+        $rooms = Room::whereDoesntHave('bookings', function ($query) use($checkIn, $checkOut){
+            $query->where(function ($q2) use ($checkIn, $checkOut) {
+                $q2->where('check_in', '<=', $checkIn)
+                    ->where('check_out', '>', $checkIn)
+                    ->where('check_out','<=',$checkOut);
+                })
+                ->orWhere(function ($q2) use ($checkIn, $checkOut) {
+                    $q2->where('check_in', '>=', $checkIn)
+                        ->where('check_in', '<', $checkOut);
+                })
+                ->orWhere(function ($q2) use ($checkIn, $checkOut) {
+                    $q2->where('check_out', '>', $checkIn)
+                        ->where('check_out', '<=', $checkOut);
+                })
+                ->orWhere(function ($q2) use ($checkIn, $checkOut) {
+                    $q2->where('check_in', '<', $checkIn)
+                        ->where('check_out', '>', $checkOut);
+                })
+
+            ;
+        })->get();
         return $rooms;
+
+//      Old Logic
+//        with('bookings')->whereHas('bookings', function ($q) use ($checkIn, $checkOut) {
+//            $q->where('status','!=',Booking::STATUS_CANCELLED)
+//                ->where(function ($q2) use ($checkIn, $checkOut) {
+//                    $q2->where('check_in', '>=', $checkOut)
+//                        ->orWhere('check_out', '<=', $checkIn);
+//                });
+//        })->orWhereDoesntHave('bookings')->get();
+
     }
 
     public function adminBooking($user, $data){
@@ -55,8 +78,8 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
             $bookingDetails = BookingDetail::create([
                 'booking_id'=>$booking->id,
                 'room_id' => $key,
-                'guest' => $guest,
-                'allocated_price' => $data['room_price'][$key]*100 ?? 0,
+                'guests' => $guest,
+                'allocated_price' => $data['room_price'][$key] ?? 0,
             ]);
         }
         return $booking;
@@ -105,6 +128,22 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         }
         $bookings = $bookings->get();
         return $bookings;
+    }
+
+    public function updatePrice($booking)
+    {
+        $bookingDetails = $booking->bookingDetails ?? [];
+        $sum = 0;
+        $start = strtotime($booking->check_in);
+        $end = strtotime($booking->check_out);
+        $days_between = ceil(abs($end - $start) / 86400);
+        foreach($bookingDetails as $bookingDetail){
+            $sum += $bookingDetail->allocated_price*(int)$days_between;
+        }
+        $booking->booking_room_price = $sum;
+        $booking->update();
+        $booking->update();
+        return $booking;
     }
 
 }

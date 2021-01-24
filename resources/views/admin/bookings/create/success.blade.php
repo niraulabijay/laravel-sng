@@ -1,5 +1,7 @@
-<div class="alert alert-success text-light">
-    <h3>Booking Registered Successfully</h3>
+<div class="alert alert-outline-success">
+    @if($success)
+        <h3>Booking Registered Successfully</h3>
+    @endif
     <div class="row">
         <div class="col-12">
             <h5>Booking Details:</h5>
@@ -21,10 +23,10 @@
                 <tr>
                     <td>Address:</td>
                     <td>
-                        {{ $booking->address ? $booking->address.'<br>':''}}
-                        {{ $booking->postCode ? $booking->postCode.'<br>':''}}
-                        {{ $booking->city ? $booking->city.'<br>':''}}
-                        {{ $booking->country ? $booking->country.'<br>':''}}
+                        {{ $booking->address ? $booking->address . ' | ' : ''}}
+                        {{ $booking->postCode ? $booking->postCode . ' | ' : ''}}
+                        {{ $booking->city ? $booking->city . ' | ' : ''}}
+                        {{ $booking->country ? $booking->country . ' | ' : ''}}
                     </td>
                 </tr>
             </table>
@@ -44,12 +46,17 @@
                     <tbody>
                         <td>{{$detail->room->roomType->title}}</td>
                         <td>{{$detail->room->title}}</td>
+                        <td>{{$detail->guests}}</td>
                         <td>
-                            {{$detail->base_price_format()}}/night
+                            {{$detail->allocated_price}}/night
                         </td>
                     </tbody>
                 @endforeach
             </table>
+        </div>
+        <div class="col-12 text-right">
+            <h3>Grand Total:</h3>
+            <h4>{{$booking->booking_room_price}}</h4>
         </div>
     </div>
 </div>

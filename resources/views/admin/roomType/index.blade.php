@@ -88,7 +88,7 @@
                                                             <div class="card-text mb-2">
                                                                 <p>
                                                                     <strong>No. of guests : </strong> <span>{{$roomType->no_of_adult}}</span>
-                                                                    &nbsp;|&nbsp;<strong>Base Price : </strong> <span>$&nbsp;{{$roomType->base_price_format()}}</span></p>
+                                                                    &nbsp;|&nbsp;<strong>Base Price : </strong> <span>Rs.&nbsp;{{$roomType->base_price_format()}}</span></p>
                                                                 </p>
 
                                                             </div>

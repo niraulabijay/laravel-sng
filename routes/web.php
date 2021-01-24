@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/debug-sentry', function () {
-    throw new Exception('My first Sentry error!');
-});
 
 Route::get('/create-super/{email}','authentication\RegistrationController@createAdmin');
 
@@ -131,10 +128,6 @@ Route::group([
     Route::get('/user/profile', 'UserController@myProfile')->name('user.profile');
     Route::post('/user/profile/update', 'UserController@myProfileUpdate')->name('user.profile.update');
 
-
-    Route::get('site', 'SiteController@index')->name('site');
-    Route::post('site', 'SiteController@update')->name('site.update');
-
     Route::get('analytic', 'AnalyticController@index')->name('analytic');
     Route::get('analytic/realtime', 'AnalyticController@getRealTimeVisitor')->name('analytic.realtime');
 
@@ -202,6 +195,27 @@ Route::group([
 
     Route::get('/booking/all','BookingController@preview')->name('booking.preview');
     Route::post('/booking/all','BookingController@searchBookings')->name('booking.search');
-    
+
+    //site Setting
+    Route::get('/site-setting','SettingController@index')->name('site.setting');
+    Route::post('/site-setting','SettingController@update')->name('site.update');
+
+    //Album & Gallery ROUTES
+    Route::group([
+        'prefix'=>'albums',
+        'as' => 'album.',
+    ], function(){
+        Route::get('/','AlbumController@index')->name('all');
+        Route::post('/add','AlbumController@add')->name('store');
+        Route::get('/edit/{id}','AlbumController@edit')->name('edit');
+        Route::post('/edit/{id}','AlbumController@update')->name('update');
+        Route::get('/delete/{id}','AlbumController@delete')->name('delete');
+        //gallery
+        Route::get('/gallery/{album_slug}','GalleryController@gallery')->name('gallery');
+        Route::get('/get_images/{album_id}','GalleryController@get_gallery')->name('get_images');
+        Route::post('/upload/{gallery_id}','GalleryController@upload')->name('upload_gallery');
+        Route::get('/delete_image/{gallery_id}','GalleryController@delete')->name('delete_gallery');
+    });
+
 
 });

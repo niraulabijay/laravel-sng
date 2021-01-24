@@ -296,7 +296,8 @@
                         blockElement(form);
                     },
                     success:function(data){
-                        console.log(data)
+                        toastr.success("New Booking Created","Operation Success");
+                        $('#finalizeBookingContainer').html(data);
                     },
                     error: function(data){
                         console.log(data.responseJSON.errors);

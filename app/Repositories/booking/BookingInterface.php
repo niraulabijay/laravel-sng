@@ -13,7 +13,11 @@ interface BookingInterface{
     // check if room is available within selected dates
     public function availableRooms($array = []);
 
+    // Admin Booking form submit
     public function adminBooking($user, $array);
+    // Update total price of booking at the instant of booking
+    public function updatePrice($booking);
+
 
     //Filter Booking in preview
     public function getFilterData($params);

@@ -14,7 +14,7 @@ class Booking extends Model
     const STATUS_CHECKIN = 2;
     const STATUS_CHECKOUT  = 3;
     const STATUS_CANCELLED = 4;
-    const STATUS_ABADONED = 5;
+    const STATUS_ABANDONED = 5;
 
     protected $fillable = [
         'user_id', 'room_id', 'check_in', 'check_out', 'booking_room_price', 'status',
@@ -33,7 +33,7 @@ class Booking extends Model
             self::STATUS_CHECKIN => 'Check In',
             self::STATUS_CHECKOUT  => 'Check Out',
             self::STATUS_CANCELLED  => 'Cancelled',
-            self::STATUS_ABADONED  => 'Abandoned'
+            self::STATUS_ABANDONED  => 'Abandoned'
         ];
     }
 

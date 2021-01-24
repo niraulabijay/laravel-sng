@@ -19,6 +19,8 @@ interface CmsInterface
 
     public function getGlobalPostSingleById($id);
 
+    public function getGlobalPostSingleBySlug($postType, $slug);
+
     public function getGlobalPostMetaByKey($post, $key);
 
     public function getGlobalPostMultipleByIds($ids = []);

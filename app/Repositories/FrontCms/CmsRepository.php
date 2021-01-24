@@ -50,6 +50,8 @@ class CmsRepository implements CmsInterface
         return $globalPosts;
     }
 
+
+
     public function getGlobalPostMetaByKey($post, $key){
         $meta =  GobalPostMeta::where('gobal_post_id', $post->id)->where('key', $key)->first();
         if($meta){
@@ -71,5 +73,12 @@ class CmsRepository implements CmsInterface
         return GobalPost::where('slug', $slug)->first();
     }
 
+    public function getGlobalPostSingleBySlug($postType, $slug){
+        $globalPost = GobalPost::where('post_type', $postType->id)
+            ->where('slug',$slug)
+            ->where('status','Active')
+            ->first();
+        return $globalPost;
+    }
 
 }

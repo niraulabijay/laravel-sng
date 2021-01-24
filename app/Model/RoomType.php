@@ -19,14 +19,15 @@ class RoomType extends Model implements HasMedia
     {
         return [
             'slug' => [
-                'source' => 'title'
+                'source' => 'title',
+                'onUpdate' => true,
             ]
         ];
     }
 
     public function base_price_format()
     {
-        return $this->base_price/100;
+        return $this->base_price;
     }
 
 

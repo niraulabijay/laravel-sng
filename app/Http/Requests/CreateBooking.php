@@ -33,6 +33,11 @@ class CreateBooking extends FormRequest
             'selectedCheckOut' => 'required|date|date-format:Y-m-d',
             'guests' => 'required',
             'room_price' => '',
+            'address' => '',
+            'city' => '',
+            'post_code' => '',
+            'phone' => '',
+            'message' => '',
         ];
     }
 

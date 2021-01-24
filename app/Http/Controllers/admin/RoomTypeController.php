@@ -46,15 +46,17 @@ class RoomTypeController extends Controller
             'status' => 'required',
             'feature_image' => 'required|mimes:png,jpg,gif,webp,JPG,jpeg,JPEG,PNG',
             'base_price' => 'required|min:0',
-            'no_of_guests' => 'required|min:1',
+            'max_occupancy' => 'required|min:1',
         ]);
         try{
             $roomType = new RoomType();
             $roomType->title = $request->title;
             $roomType->hotel_id = $request->hotel_id;
             $roomType->description = $request->description;
-            $roomType->no_of_adult = $request->no_of_guests;
-            $roomType->base_price = $request->base_price*100;
+            $roomType->max_occupancy = $request->max_occupancy;
+            $roomType->no_of_adult = $request->no_of_adult;
+            $roomType->no_of_child = $request->no_of_child;
+            $roomType->base_price = $request->base_price;
             $roomType->status = $request->status == "on" ? "Active" : "Inactive";
             $roomType->save();
 
@@ -94,14 +96,16 @@ class RoomTypeController extends Controller
             'status' => 'required',
             'feature_image' => 'mimes:png,jpg,gif,webp,JPG,jpeg,JPEG,PNG',
             'base_price' => 'required|min:0',
-            'no_of_guests' => 'required|min:1',
+            'max_occupancy' => 'required|min:1',
         ]);
         try{
             $roomType = RoomType::find($request->room_type);
             $roomType->title = $request->title;
             $roomType->description = $request->description;
-            $roomType->no_of_adult = $request->no_of_guests;
-            $roomType->base_price = $request->base_price*100;
+            $roomType->max_occupancy = $request->max_occupancy;
+            $roomType->no_of_adult = $request->no_of_adult;
+            $roomType->no_of_child = $request->no_of_child;
+            $roomType->base_price = $request->base_price;
             $roomType->status = $request->status == "on" ? "Active" : "Inactive";
             $roomType->update();
 

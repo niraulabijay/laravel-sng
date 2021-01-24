@@ -35,10 +35,12 @@ Route::group([
 
 
     Route::get('/packages','CmsController@packages');
+    Route::get('/package/single/{slug}','CmsController@singlePackage');
     Route::get('/video-gallery','CmsController@videoGallery');
     Route::get('/restaurant','CmsController@restaurant');
     Route::get('/teams','CmsController@teams');
 
+    Route::get('/homepage','SiteController@homepage');
     //Booking
     Route::post('/booking','BookingController@search');
 

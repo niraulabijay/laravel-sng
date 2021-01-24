@@ -10,7 +10,9 @@ use App\Repositories\hotel\HotelRepository;
 use App\Repositories\roomType\RoomTypeRepository;
 use App\Repositories\user\CustomerInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
@@ -101,8 +103,8 @@ class BookingController extends Controller
 
     public function finalize(CreateBooking $request){
         $validated = $request->validated();
-        // dd($validated['guests']);
         try{
+            DB::beginTransaction();
             $user = $this->userRepo->findByEmail($validated['email']);
             if(!$user){
                 $user = $this->userRepo->createDefaultUser([
@@ -112,7 +114,22 @@ class BookingController extends Controller
                 ]);
             }
             $booking = $this->bookingRepo->adminBooking($user, $validated);
-        }catch(\Exception $e){
+            $booking = $this->bookingRepo->updatePrice($booking);
+            if($booking){
+                DB::commit();
+                $success = true;
+                $view = view('admin.bookings.create.success',compact('booking','success'))->render();
+                return response()->json($view,200);
+            }else{
+                DB::rollBack();
+                return response()->json("Failed to complete booking",400);
+            }
+        }catch(QueryException $e){
+            DB::rollBack();
+            return response()->json($e->getMessage(),400);
+        }
+        catch(\Exception $e){
+            DB::rollBack();
             return response()->json($e->getMessage(),400);
         }
     }
