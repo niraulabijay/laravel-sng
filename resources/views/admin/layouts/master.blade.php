@@ -14,7 +14,7 @@
     <link href="{{ asset('cork/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('cork/assets/css/plugins.css') }}" rel="stylesheet" type="text/css" />
     <script src="{{ asset('cork/plugins/sweetalerts/promise-polyfill.js') }}"></script>
-    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset('cork/assets/css/elements/alert.css')}}">
     <link href="{{asset('cork/custom/css/my.css')}}" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -96,7 +96,7 @@
     </script>
 
     <!-- Toastr Alert -->
-    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
         {!! Toastr::message() !!}
 
     <script src="{{ asset('cork/plugins/font-icons/feather/feather.min.js') }}"></script>
