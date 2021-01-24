@@ -17,13 +17,12 @@ class CreateHotelsTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
-            $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('destination_id')->nullable();
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->longText('location')->nullable();
             $table->timestamps();
 
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');
+           
             $table->foreign('destination_id')->references('id')->on('hotels')->onDelete('restrict');
         });
     }
