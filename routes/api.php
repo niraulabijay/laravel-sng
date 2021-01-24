@@ -40,6 +40,8 @@ Route::group([
     Route::get('/restaurant','CmsController@restaurant');
     Route::get('/teams','CmsController@teams');
     Route::get('/gallery','FrontController@gallery');
+    Route::get('/blogs','CmsController@blogs');
+    Route::get('blog/single/{slug}','CmsController@singleBlog');
 
     Route::get('/homepage','SiteController@homepage');
     //Booking

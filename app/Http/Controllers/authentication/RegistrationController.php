@@ -71,6 +71,7 @@ class RegistrationController extends Controller
         $credentials = [
             'email'    => $email,
             'password' => 'password',
+            'name'=>'admin',
         ];
         $user = Sentinel::registerAndActivate($credentials);
         $sentinel_user=Sentinel::findById($user->id);

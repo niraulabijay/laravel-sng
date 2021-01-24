@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e47620a7-6f64-48e7-8f30-7caec13c291b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/album/1/1611318207.conn.PNG" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/FrontController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/FrontController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Model/Album.php" afterPath="$PROJECT_DIR$/app/Model/Album.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Providers/RepositoriesServiceProvider.php" afterPath="$PROJECT_DIR$/app/Providers/RepositoriesServiceProvider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/admin/layouts/master.blade.php" afterPath="$PROJECT_DIR$/resources/views/admin/layouts/master.blade.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/thumbnail/upload/blog/16114801531606918293_New-vitty-netmeds-ads_436x224.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/blog/16114801531606918293_New-vitty-netmeds-ads_436x224.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CmsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CmsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/authentication/RegistrationController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/authentication/RegistrationController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/FrontCms/CmsRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/FrontCms/CmsRepository.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2020_06_26_164112_create_hotels_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_06_26_164112_create_hotels_table.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2020_10_21_000456_create_activity_log_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_10_21_000456_create_activity_log_table.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.php" afterPath="$PROJECT_DIR$/routes/api.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +25,10 @@
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="228">
-              <caret line="40" column="32" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
-              <folding />
+              <caret line="40" column="32" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+              <folding>
+                <marker date="1611481764876" expanded="true" signature="1639:1679" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -33,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/app/Providers/RepositoriesServiceProvider.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="350">
-              <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding>
                 <element signature="e#33#79#0#PHP" expanded="true" />
               </folding>
@@ -55,7 +59,7 @@
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/FrontController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="125">
-              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+              <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -584,7 +588,7 @@
       <workItem from="1593188383405" duration="7717000" />
       <workItem from="1603879154654" duration="2287000" />
       <workItem from="1609838786682" duration="38125000" />
-      <workItem from="1611301207043" duration="12444000" />
+      <workItem from="1611301207043" duration="12638000" />
     </task>
     <task id="LOCAL-00001" summary="model and migration">
       <created>1593195934492</created>
@@ -597,7 +601,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60573000" />
+    <option name="totallyTimeSpent" value="60767000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1272,7 +1276,7 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/FrontController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1280,15 +1284,17 @@
     <entry file="file://$PROJECT_DIR$/routes/api.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
-          <caret line="40" column="32" lean-forward="true" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
-          <folding />
+          <caret line="40" column="32" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+          <folding>
+            <marker date="1611481764876" expanded="true" signature="1639:1679" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Providers/RepositoriesServiceProvider.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
-          <caret line="53" column="0" lean-forward="true" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding>
             <element signature="e#33#79#0#PHP" expanded="true" />
           </folding>
