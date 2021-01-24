@@ -32,8 +32,6 @@ Route::group([
     // Route::get('/destinations','FrontController@destinations');
     Route::get('/faqs','FrontController@faqs');
 
-
-
     Route::get('/packages','CmsController@packages');
     Route::get('/package/single/{slug}','CmsController@singlePackage');
     Route::get('/video-gallery','CmsController@videoGallery');
@@ -45,7 +43,8 @@ Route::group([
     Route::get('/homepage','SiteController@homepage');
     //Booking
     Route::post('/booking','BookingController@search');
-
+    //contact
+    Route::post('/contact/send','ContactController@create');
     Route::group([
         'middleware' => 'jwt-auth'
     ], function (){

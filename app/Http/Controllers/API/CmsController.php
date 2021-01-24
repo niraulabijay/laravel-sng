@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class CmsController extends Controller
 {
     protected $cms;
+    
     public function __construct(CmsInterface $cms)
     {
         $this->cms = $cms;
