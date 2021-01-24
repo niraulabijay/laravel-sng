@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e47620a7-6f64-48e7-8f30-7caec13c291b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/thumbnail/upload/blog/16114801531606918293_New-vitty-netmeds-ads_436x224.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/blog/16114801531606918293_New-vitty-netmeds-ads_436x224.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CmsController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/CmsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/authentication/RegistrationController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/authentication/RegistrationController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Repositories/FrontCms/CmsRepository.php" afterPath="$PROJECT_DIR$/app/Repositories/FrontCms/CmsRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2020_06_26_164112_create_hotels_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_06_26_164112_create_hotels_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2020_10_21_000456_create_activity_log_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_10_21_000456_create_activity_log_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.php" afterPath="$PROJECT_DIR$/routes/api.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/admin/HotelController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/admin/HotelController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2020_06_26_164324_create_room_types_table.php" afterPath="$PROJECT_DIR$/database/migrations/2020_06_26_164324_create_room_types_table.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,20 +18,18 @@
       <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="40" column="32" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
-              <folding>
-                <marker date="1611481764876" expanded="true" signature="1639:1679" ph="..." />
-              </folding>
+            <state relative-caret-position="303">
+              <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RepositoriesServiceProvider.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RepositoriesServiceProvider.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Providers/RepositoriesServiceProvider.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
               <folding>
                 <element signature="e#33#79#0#PHP" expanded="true" />
               </folding>
@@ -90,6 +82,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="275">
               <caret line="16" column="28" lean-forward="false" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CmsController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/CmsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="241">
+              <caret line="55" column="32" lean-forward="false" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -484,7 +486,7 @@
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="repos&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Providers/RepositoriesServiceProvider.php&#10;api&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/routes/api.php&#10;album&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/Album.php&#10;frontco&#9;null&#9;null&#10;systemuser&#9;null&#9;null&#10;user&#9;null&#9;null&#10;create_logs&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/vendor/spatie/laravel-activitylog/migrations/create_activity_log_table.php.stub&#10;master&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/resources/views/admin/layouts/master.blade.php&#10;web&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/routes/web.php&#10;posttype&#9;null&#9;null&#10;hel&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/helpers.php&#10;help&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/helpers.php&#10;gallery&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/GalleryController.php&#10;albumco&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/AlbumController.php&#10;gallerycontro&#9;null&#9;null&#10;albumcont&#9;null&#9;null&#10;create_galler&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/database/migrations/2021_01_22_111849_create_galleries_table.php&#10;create_album&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/database/migrations/2021_01_22_111822_create_albums_table.php&#10;cmsrep&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Repositories/FrontCms/CmsRepository.php&#10;cmscon&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/API/CmsController.php&#10;cmsrepo&#9;null&#9;null&#10;cmsint&#9;null&#9;null&#10;cmsco&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/API/CmsController.php&#10;redirect&#9;null&#9;null&#10;set&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/SettingController.php&#10;roomt&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/RoomType.php&#10;roomty&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/RoomTypeController.php&#10;room&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/RoomType.php&#10;cms&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/API/CmsController.php&#10;siteco&#9;null&#9;null&#10;SiteSetting&#9;null&#9;null&#10;helper&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/helpers.php&#10;helpers&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/helpers.php&#10;topb&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/resources/views/admin/layouts/topbar.blade.php&#10;settingcont&#9;null&#9;null&#10;exception.p&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/vendor/league/flysystem/src/Exception.php&#10;error&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/vendor/psy/psysh/src/Exception/ErrorException.php&#10;.env&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/.env&#10;maste&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/resources/views/admin/layouts/master.blade.php&#10;bookingde&#9;null&#9;null&#10;booking&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/Booking.php&#10;booking.&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/Booking.php&#10;bookingre&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Repositories/booking/BookingRepository.php&#10;bookingint&#9;null&#9;null&#10;roomtyp&#9;null&#9;null&#10;bookingco&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/BookingController.php&#10;roomtype&#9;null&#9;null&#10;footer&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/resources/views/admin/layouts/footer.blade.php&#10;add.bl&#9;FILE&#9;file://C:/dristicode/HotelSystem/resources/views/admin/roomType/add.blade.php&#10;form.bla&#9;FILE&#9;file://C:/dristicode/HotelSystem/resources/views/admin/brand/setting/form.blade.php" />
+    <property name="SearchEverywhereHistoryKey" value="cmscon&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/API/CmsController.php&#10;api&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/routes/api.php&#10;repos&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Providers/RepositoriesServiceProvider.php&#10;album&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/Album.php&#10;frontco&#9;null&#9;null&#10;systemuser&#9;null&#9;null&#10;user&#9;null&#9;null&#10;create_logs&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/vendor/spatie/laravel-activitylog/migrations/create_activity_log_table.php.stub&#10;master&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/resources/views/admin/layouts/master.blade.php&#10;web&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/routes/web.php&#10;posttype&#9;null&#9;null&#10;hel&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/helpers.php&#10;help&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/helpers.php&#10;gallery&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/GalleryController.php&#10;albumco&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/AlbumController.php&#10;gallerycontro&#9;null&#9;null&#10;albumcont&#9;null&#9;null&#10;create_galler&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/database/migrations/2021_01_22_111849_create_galleries_table.php&#10;create_album&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/database/migrations/2021_01_22_111822_create_albums_table.php&#10;cmsrep&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Repositories/FrontCms/CmsRepository.php&#10;cmsrepo&#9;null&#9;null&#10;cmsint&#9;null&#9;null&#10;cmsco&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/API/CmsController.php&#10;redirect&#9;null&#9;null&#10;set&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/SettingController.php&#10;roomt&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/RoomType.php&#10;roomty&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/RoomTypeController.php&#10;room&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/RoomType.php&#10;cms&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/API/CmsController.php&#10;siteco&#9;null&#9;null&#10;SiteSetting&#9;null&#9;null&#10;helper&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/helpers.php&#10;helpers&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/helpers.php&#10;topb&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/resources/views/admin/layouts/topbar.blade.php&#10;settingcont&#9;null&#9;null&#10;exception.p&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/vendor/league/flysystem/src/Exception.php&#10;error&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/vendor/psy/psysh/src/Exception/ErrorException.php&#10;.env&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/.env&#10;maste&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/resources/views/admin/layouts/master.blade.php&#10;bookingde&#9;null&#9;null&#10;booking&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/Booking.php&#10;booking.&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Model/Booking.php&#10;bookingre&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Repositories/booking/BookingRepository.php&#10;bookingint&#9;null&#9;null&#10;roomtyp&#9;null&#9;null&#10;bookingco&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/app/Http/Controllers/admin/BookingController.php&#10;roomtype&#9;null&#9;null&#10;footer&#9;FILE&#9;file://C:/xampp/htdocs/sngHotel/resources/views/admin/layouts/footer.blade.php&#10;add.bl&#9;FILE&#9;file://C:/dristicode/HotelSystem/resources/views/admin/roomType/add.blade.php&#10;form.bla&#9;FILE&#9;file://C:/dristicode/HotelSystem/resources/views/admin/brand/setting/form.blade.php" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -588,7 +590,7 @@
       <workItem from="1593188383405" duration="7717000" />
       <workItem from="1603879154654" duration="2287000" />
       <workItem from="1609838786682" duration="38125000" />
-      <workItem from="1611301207043" duration="12638000" />
+      <workItem from="1611301207043" duration="13292000" />
     </task>
     <task id="LOCAL-00001" summary="model and migration">
       <created>1593195934492</created>
@@ -601,7 +603,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60767000" />
+    <option name="totallyTimeSpent" value="61421000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -882,14 +884,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/CmsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1079">
-          <caret line="63" column="10" lean-forward="false" selection-start-line="63" selection-start-column="10" selection-end-line="63" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1281,23 +1275,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
+    <entry file="file://$PROJECT_DIR$/app/Providers/RepositoriesServiceProvider.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="40" column="32" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
+        <state relative-caret-position="300">
+          <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
           <folding>
-            <marker date="1611481764876" expanded="true" signature="1639:1679" ph="..." />
+            <element signature="e#33#79#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Providers/RepositoriesServiceProvider.php">
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding>
-            <element signature="e#33#79#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="303">
+          <caret line="43" column="18" lean-forward="false" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/API/CmsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="55" column="32" lean-forward="false" selection-start-line="55" selection-start-column="32" selection-end-line="55" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>

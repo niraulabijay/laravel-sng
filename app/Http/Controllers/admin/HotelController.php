@@ -20,14 +20,12 @@ class HotelController extends Controller
         // dd($request);
         $request->validate([
             'title' => 'required|unique:hotels,title',
-            'brand' => 'required',
-            'feature' => 'required|mimes:jpeg,bmp,png',
+            'feature' => 'required|mimes:jpeg,bmp,png,jpg',
             'location' => 'required',
         ]);
         try{
             $hotel = new Hotel();
             $hotel->title = $request->title;
-            $hotel->brand_id = $request->brand;
             $hotel->location = $request->location;
             if($request->status){
                 $hotel->status = "Active";

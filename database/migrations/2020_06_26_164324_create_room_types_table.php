@@ -19,6 +19,7 @@ class CreateRoomTypesTable extends Migration
             $table->string('slug')->nullable();
             $table->enum('status', ['Active', 'Inactive'])->default('Active');
             $table->longText('description')->nullable();
+            $table->integer('max_occupancy')->nullable()->unsigned();
             $table->integer('no_of_adult')->nullable()->unsigned();
             $table->integer('no_of_child')->nullable()->unsigned();
             $table->integer('base_price')->nullable()->unsigned();
