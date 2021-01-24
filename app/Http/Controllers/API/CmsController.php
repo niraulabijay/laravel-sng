@@ -47,6 +47,18 @@ class CmsController extends Controller
         ],200);
     }
 
+    public function singleBlog($slug)
+    {
+        $postType = $this->cms->getGlobalPostTypeBySlug('blog');
+     
+        $blog = $this->cms->getGlobalPostSingleBySlug($postType, $slug);
+    
+        return response()->json([
+            'status' => 'success',
+            'blogs' => $this->formatSingleBlog($blog)
+        ],200);
+    }
+
     private function formatSinglePackage($package){
         return [
             'id' => $package->id,
@@ -64,6 +76,17 @@ class CmsController extends Controller
         ];
     }
 
+    private function formatSingleBlog($blog)
+    {
+        return 
+        [
+            'id' => $blog->id,
+            'slug'=>$blog->slug,
+            'description'=>$blog->post_content,
+            'author' => $this->cms->getGlobalPostMetaByKey($blog,'author') ?? null,
+            'image'=>$blog->image ? asset($blog->image) : null,
+        ];
+    }
     private function getSingleValueRepeaterMeta($post, $key){
         $data = unserialize($this->cms->getGlobalPostMetaByKey($post, $key));
         $values = [];
@@ -152,9 +175,19 @@ class CmsController extends Controller
         ],200);
     }
 
+    public function blogs()
+    {
+        $blogs = $this->cms->getGlobalPostByPostTypeSlug('blog');
+        return response()->json([
+            'status' => 'success',
+            'blogs' => $this->formatBlog($blogs)
+        ],200);
+
+    }
     private function formatTeam($teams){
         $data = [];
-        foreach($teams as $team){
+        foreach($teams as $team)
+        {
             $data[] = [
                 'title' => $team->title,
                 'description' => $team->post_content,
@@ -164,4 +197,21 @@ class CmsController extends Controller
         }
         return $data;
     }
+
+    private function formatBlog($blogs){
+        $data = [];
+        foreach($blogs as $blog)
+        {
+            $data[] = 
+            [
+                'title' => $blog->title,
+                'description' => $blog->post_content,
+                'image' => $blog->image ? asset($blog->image) : null,
+                'slug'=>$blog->slug,
+                'date'=>date('Y-m-d',strtotime($blog->created_at))
+            ];
+        }
+        return $data;
+    }
+
 }

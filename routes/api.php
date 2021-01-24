@@ -39,6 +39,8 @@ Route::group([
     Route::get('/video-gallery','CmsController@videoGallery');
     Route::get('/restaurant','CmsController@restaurant');
     Route::get('/teams','CmsController@teams');
+    Route::get('/blogs','CmsController@blogs');
+    Route::get('blog/single/{slug}','CmsController@singleBlog');
 
     Route::get('/homepage','SiteController@homepage');
     //Booking

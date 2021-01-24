@@ -50,8 +50,6 @@ class CmsRepository implements CmsInterface
         return $globalPosts;
     }
 
-
-
     public function getGlobalPostMetaByKey($post, $key){
         $meta =  GobalPostMeta::where('gobal_post_id', $post->id)->where('key', $key)->first();
         if($meta){
