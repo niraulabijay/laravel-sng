@@ -85,7 +85,7 @@
                     @endif
                 </h4>
                 @if(isset($editHotel))
-                    <form class="form-vertical" method="post" action="{{ route('admin.hotels.edit') }}" enctype="multipart/form-data">
+                    <form class="form-vertical" method="post" action="{{ route('admin.hotels.edit',$editHotel->id) }}" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="{{$editHotel->id}}">
                 @else
                     <form class="form-vertical" method="post" action="{{ route('admin.hotels.add') }}" enctype="multipart/form-data">

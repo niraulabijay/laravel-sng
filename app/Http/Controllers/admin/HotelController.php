@@ -17,17 +17,15 @@ class HotelController extends Controller
     }
 
     public function add(Request $request){
-        // dd($request);
+    
         $request->validate([
             'title' => 'required|unique:hotels,title',
-            'brand' => 'required',
-            'feature' => 'required|mimes:jpeg,bmp,png',
+            'feature' => 'required|mimes:jpeg,bmp,png,jpg',
             'location' => 'required',
         ]);
-        try{
+        // try{
             $hotel = new Hotel();
             $hotel->title = $request->title;
-            $hotel->brand_id = $request->brand;
             $hotel->location = $request->location;
             if($request->status){
                 $hotel->status = "Active";
@@ -39,19 +37,19 @@ class HotelController extends Controller
                 $hotel->addMediaFromRequest('feature')
                     ->toMediaCollection('hotel_feature');
             }
-        }catch(\Exception $e){
-            Toastr::error($e->getMessage(), 'Server Error');
-            return redirect()->back();
-        }
+        // }catch(\Exception $e){
+        //     Toastr::error($e->getMessage(), 'Server Error');
+        //     return redirect()->back();
+        // }
         Toastr::success('New Hotel Added Successfully','Operation Success');
         return redirect()->back();
     }
 
     public function edit($id){
         $hotels = Hotel::all();
-        $brands = Brand::all();
+   
         $editHotel = Hotel::findOrFail($id);
-        return view('admin.hotel.index',compact('hotels','editHotel','brands'));
+        return view('admin.hotel.index',compact('hotels','editHotel'));
     }
 
     public function update(Request $request, $id){
