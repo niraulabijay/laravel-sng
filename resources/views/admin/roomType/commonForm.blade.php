@@ -95,10 +95,10 @@
     <div class="col-lg-4">
         <div class="card card-component-1">
             <div class="card-body">
-                <div class="form-group mb-4 "">
+                <div class="form-group mb-4 ">
                     <div class="row p-2" style="background-color: #f5f5f5">
                         <div class="col-6">
-                            <label class="control-label" style="color:#">Satus:</label>
+                            <label class="control-label" style="color:#">Status:</label>
                         </div>
                         <div class="col-6">
                             <label class="float-right switch s-icons s-outline  s-outline-success  mb-4 mr-2">
