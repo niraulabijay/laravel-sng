@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\API\MasterRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContactRequest extends FormRequest
+class ContactRequest extends MasterRequest
 {
     /**
      * Determine if the user is authorized to make this request.
