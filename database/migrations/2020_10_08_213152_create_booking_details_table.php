@@ -21,7 +21,6 @@ class CreateBookingDetailsTable extends Migration
             $table->integer('allocated_price')->nullable();
             $table->longText('instructions')->nullable();
             $table->timestamps();
-
             $table->foreign('booking_id')->references('id')->on('bookings')->onDelete('restrict');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('restrict');
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateBookingsTable extends Migration
@@ -31,7 +32,6 @@ class CreateBookingsTable extends Migration
             $table->timestamps();
             $table->enum('source', ['Online', 'Reception'])->default('Online');
             $table->softDeletes();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
 

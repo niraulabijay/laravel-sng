@@ -45,8 +45,8 @@ class AuthController extends Controller
             return ('Missing Credentials');
         }
         $credentials = request(['email', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
+     
+        if (! $token = auth('api')->attempt($credentials)) {
             return response()->json([
                 'status' => 'error',
                 'msg' => 'Unauthorized'
@@ -73,6 +73,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
+       
         auth()->logout();
 
         return response()->json([
@@ -103,7 +104,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth('api')->factory()->getTTL() * 60
         ]);
     }
 
