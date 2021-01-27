@@ -140,6 +140,7 @@ Route::group([
     Route::get('analytic/realtime', 'AnalyticController@getRealTimeVisitor')->name('analytic.realtime');
 
     Route::get('/contacts','ContactController@index')->name('contacts');
+    Route::get('/contact-details','ContactController@contactDetail')->name('contactDetail');
 
 
     //Brands

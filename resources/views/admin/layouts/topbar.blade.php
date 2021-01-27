@@ -51,6 +51,9 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="userEnquiry" data-parent="#topAccordion">
                     <li>
+                        <a href="{{ route('admin.contacts') }}">Contact</a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.packageEnquiries') }}">Packages</a>
                     </li>
                 </ul>

@@ -16,14 +16,14 @@
 
     <div class="page-header">
         <div class="page-title">
-            <h3>Package Enquiries</h3>
+            <h3>Contact Messages</h3>
         </div>
         {{-- Breadcrumbs section --}}
         <nav class="breadcrumb-one" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
                 {{-- <li class="breadcrumb-item"><a href="{{ route('admin.roomType') }}">RoomType</a></li> --}}
-                <li class="breadcrumb-item active" aria-current="page">Enquiry</li>
+                <li class="breadcrumb-item active" aria-current="page">Contact</li>
             </ol>
         </nav>
     </div>
@@ -44,22 +44,22 @@
                                     <th>S.No</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Package</th>
+                                    <th>Subject</th>
                                     <th>Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(isset($enquiries))
-                                    @foreach($enquiries as $enquiry)
+                                @if(isset($contacts))
+                                    @foreach($contacts as $contact)
                                     <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$enquiry->name}}</td>
-                                        <td>{{$enquiry->email}}</td>
-                                        <td>{{ $enquiry->package->title }}</td>
-                                        <td>{{$enquiry->tour_date}}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $contact->name }}</td>
+                                        <td>{{ $contact->email }}</td>
+                                        <td>{{ $contact->subject }}</td>
+                                        <td>{{ $contact->created_at->diffForHumans() }}</td>
                                         <td>
-                                            <a href="#" title="View" class="badge badge-success viewEnquiry" data-id="{{$enquiry->id}}"> <i data-feather="eye"></i></a>
+                                            <a href="#" title="View" class="badge badge-success viewEnquiry" data-id="{{$contact->id}}"> <i data-feather="eye"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -109,9 +109,9 @@
         $('.viewEnquiry').on('click',function(){
             var id = $(this).attr('data-id');
             $.ajax({
-                url: '{{route("admin.packageEnquiryDetail")}}',
+                url: '{{route("admin.contactDetail")}}',
                 type: 'get',
-                data: {enquiry_id: id},
+                data: {contact_id: id},
                 beforeSend: function(){
                     $('.view-package-modal-content').html('Loading.....');
                 },
