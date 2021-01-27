@@ -38,15 +38,18 @@ Route::group([
     Route::get('/video-gallery','CmsController@videoGallery');
     Route::get('/restaurant','CmsController@restaurant');
     Route::get('/teams','CmsController@teams');
+    Route::get('/gallery','FrontController@gallery');
     Route::get('/blogs','CmsController@blogs');
     Route::get('blog/single/{slug}','CmsController@singleBlog');
 
     Route::get('/homepage','SiteController@homepage');
+    Route::get('/aboutpage','SiteController@aboutpage');
     //Booking
     Route::post('/booking','BookingController@search');
     Route::post('create/booking','BookingController@store');
     //contact
     Route::post('/contact/send','ContactController@create');
+
     Route::group([
         'middleware' => 'jwt-auth'
     ], function (){

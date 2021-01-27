@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/create-super/{email}','authentication\RegistrationController@createAdmin');
+Route::get('clear_cache', function () {
+    \Artisan::call('config:cache');
+    dd("Cache is cleared");
+});
 
 //Authentication Routes
 Route::post('/logout', 'authentication\LogController@logout')->name('logout');

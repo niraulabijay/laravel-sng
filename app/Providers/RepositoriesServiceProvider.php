@@ -18,6 +18,8 @@ use App\Repositories\faq\FaqInterface;
 use App\Repositories\faq\FaqRepository;
 use App\Repositories\FrontCms\CmsInterface;
 use App\Repositories\FrontCms\CmsRepository;
+use App\Repositories\gallery\GalleryInterface;
+use App\Repositories\gallery\GalleryRepository;
 use App\Repositories\hotel\HotelInterface;
 use App\Repositories\hotel\HotelRepository;
 use App\Repositories\roomType\RoomTypeInterface;
@@ -47,6 +49,7 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(RoomTypeInterface::class, RoomTypeRepository::class);
         $this->app->bind(HotelInterface::class, HotelRepository::class);
         $this->app->bind(CmsInterface::class, CmsRepository::class);
+        $this->app->bind(GalleryInterface::class,GalleryRepository::class);
     }
 
     /**

@@ -54,9 +54,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
                 ->orWhere(function ($q2) use ($checkIn, $checkOut) {
                     $q2->where('check_in', '<', $checkIn)
                         ->where('check_out', '>', $checkOut);
-                })
-
-            ;
+                });
         })->get();
         return $rooms;
 

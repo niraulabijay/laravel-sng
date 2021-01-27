@@ -18,7 +18,7 @@ class SettingController extends Controller
         $inputs = $request->all();
         foreach ($inputs as $inputKey => $inputValue) {
             $images = [
-                'logo', 'favicon', 'banner_image', 'discount_section_image',
+                'logo', 'favicon', 'banner_image', 'discount_section_image', 'about_image',
                 'mission_1_image', 'mission_2_image', 'mission_3_image'
             ];
             if(in_array($inputKey, $images)){
