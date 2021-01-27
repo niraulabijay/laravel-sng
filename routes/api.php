@@ -42,6 +42,7 @@ Route::group([
     Route::get('blog/single/{slug}','CmsController@singleBlog');
 
     Route::get('/homepage','SiteController@homepage');
+    Route::get('/aboutpage','SiteController@aboutpage');
     //Booking
     Route::post('/booking','BookingController@search');
     //contact
