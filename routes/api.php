@@ -47,6 +47,7 @@ Route::group([
     Route::post('/booking','BookingController@search');
     //contact
     Route::post('/contact/send','ContactController@create');
+    Route::post('/package-submit','ContactController@postPackage');
 
     Route::group([
         'middleware' => 'jwt-auth'

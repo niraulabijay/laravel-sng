@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class CmsController extends Controller
 {
     protected $cms;
-    
+
     public function __construct(CmsInterface $cms)
     {
         $this->cms = $cms;
@@ -51,9 +51,9 @@ class CmsController extends Controller
     public function singleBlog($slug)
     {
         $postType = $this->cms->getGlobalPostTypeBySlug('blog');
-     
+
         $blog = $this->cms->getGlobalPostSingleBySlug($postType, $slug);
-    
+
         return response()->json([
             'status' => 'success',
             'blogs' => $this->formatSingleBlog($blog)
@@ -71,7 +71,7 @@ class CmsController extends Controller
             'price' => $this->cms->getGlobalPostMetaByKey($package, 'price') ?? null,
             'offer_price' => $this->cms->getGlobalPostMetaByKey($package, 'offer-price') ?? null,
             'language' => $this->cms->getGlobalPostMetaByKey($package, 'language') ?? null,
-            'min-group-size' => $this->cms->getGlobalPostMetaByKey($package, 'min-group-size') ?? null,
+            'min_group_size' => $this->cms->getGlobalPostMetaByKey($package, 'min-group-size') ?? null,
             'inclusions' => $this->getSingleValueRepeaterMeta($package, 'inclusions') ?? [],
             'exclusions' => $this->getSingleValueRepeaterMeta($package, 'exclusions') ?? [],
         ];
@@ -79,7 +79,7 @@ class CmsController extends Controller
 
     private function formatSingleBlog($blog)
     {
-        return 
+        return
         [
             'id' => $blog->id,
             'slug'=>$blog->slug,
@@ -91,7 +91,7 @@ class CmsController extends Controller
     private function getSingleValueRepeaterMeta($post, $key){
         $data = unserialize($this->cms->getGlobalPostMetaByKey($post, $key));
         $values = [];
-        $data = array_values($data);
+        $data = $data && count($data) > 0 ? array_values($data) : [];
         if($data) {
             foreach ($data as $key=>$val) {
                 foreach($val as $k=>$v)
@@ -203,7 +203,7 @@ class CmsController extends Controller
         $data = [];
         foreach($blogs as $blog)
         {
-            $data[] = 
+            $data[] =
             [
                 'title' => $blog->title,
                 'description' => $blog->post_content,

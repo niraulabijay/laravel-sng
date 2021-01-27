@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/create-super/{email}','authentication\RegistrationController@createAdmin');
 Route::get('clear_cache', function () {
     \Artisan::call('config:cache');
+    \Artisan::call('config:clear');
+    \Artisan::call('route:clear');
+    \Artisan::call('cache:clear');
+    \Artisan::call('view:clear');
     dd("Cache is cleared");
 });
 
@@ -220,6 +224,10 @@ Route::group([
         Route::post('/upload/{gallery_id}','GalleryController@upload')->name('upload_gallery');
         Route::get('/delete_image/{gallery_id}','GalleryController@delete')->name('delete_gallery');
     });
+
+    //Package enquiry from user
+    Route::get('/package-enquiries','ContactController@packageEnquiries')->name('packageEnquiries');
+    Route::get('/package-enquiry/details/','ContactController@packageEnquiryDetail')->name('packageEnquiryDetail');
 
 
 });

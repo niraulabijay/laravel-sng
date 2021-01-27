@@ -10,5 +10,5 @@ Subject: {{ $contact->subject }}
 
 
 Admin,<br>
-{{ config('app.name') }}
+{{ env('APP_NAME') }}
 @endcomponent
