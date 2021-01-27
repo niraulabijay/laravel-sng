@@ -24,4 +24,6 @@ interface BookingInterface{
 
     public function store($data);
 
+    public function availableRoomsType($data);
+
 }

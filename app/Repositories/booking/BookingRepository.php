@@ -70,6 +70,49 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
 //        })->orWhereDoesntHave('bookings')->get();
 
     }
+    
+    public function availableRoomsType($data)
+    {
+        $rooms = [];
+        
+        foreach($data['occupancy'] as $key=>$occupancy)
+        {
+            $room_type = RoomType::where('no_of_adult','>=',$occupancy['adult'])
+            ->where('no_of_child','>=',$occupancy['child'])
+            ->where('max_occupancy','>=',$data['occupancy'][$key]['adult']+$data['occupancy'][$key]['child'])
+            ->first();
+         
+            if($rooms == null && $room_type)
+            {
+                array_push($rooms,$room_type);
+            }
+            else
+            {
+                // if($this->existsInArray($room_type,$rooms))
+                // {
+                //     array_push($rooms,$room_type);
+                // }
+                   if($room_type && !in_array($room_type, $rooms, true)){
+                    array_push($rooms,$room_type);
+                }  
+            }
+       
+        
+        }
+        return $rooms;
+        
+    }
+
+    public function existsInArray($entry, $array) {
+    
+        foreach ($array as $compare) {
+            if ($compare->id == $entry->id) 
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public function adminBooking($user, $data){
         $data['user_id'] = $user->id;

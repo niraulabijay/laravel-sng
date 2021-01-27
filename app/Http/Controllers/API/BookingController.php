@@ -4,9 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBooking;
+use App\Http\Resources\room\RoomTypeResource;
 use App\Model\Booking;
 use App\Model\GuestBooking;
 use App\Model\Room;
+use App\Model\RoomType;
 use App\Repositories\booking\BookingInterface;
 use App\Repositories\user\CustomerInterface;
 use Cartalyst\Sentinel\Users\UserInterface;
@@ -29,8 +31,27 @@ class BookingController extends Controller
    
     public function search(Request $request)
     {
-        return $request->all();
+        
+        $search = $request->all();
+        $room_search = $this->bookingRepo->availableRoomsType($search);
+        
+        $data['checkIn'] = $search['selectionRange']['startDate'];
+        $data['checkOut'] = $search['selectionRange']['endDate'];
+        $available = $this->bookingRepo->availableRooms($data);
+        foreach($available as $room)
+        {
+            $room = RoomType::findOrFail($room->room_type_id);
+            if(in_array($room,$room_search))
+            {
+                array_push($room_search,$room);
+            }
+        }   
+        return RoomTypeResource::collection(array_unique($room_search));
+        
+       
     }
+
+    
 
     public function store(Request $request)
     {
@@ -73,9 +94,6 @@ class BookingController extends Controller
                 return response()->json("Failed to complete booking",400);
             }
 
-            
-           
-            
             
         }
         catch(QueryException $e){
