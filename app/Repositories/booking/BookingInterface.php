@@ -22,4 +22,8 @@ interface BookingInterface{
     //Filter Booking in preview
     public function getFilterData($params);
 
+    public function store($data);
+
+    public function availableRoomsType($data);
+
 }

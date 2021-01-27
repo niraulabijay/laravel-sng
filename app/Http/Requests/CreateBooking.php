@@ -29,8 +29,6 @@ class CreateBooking extends FormRequest
             'last_name' => 'required|max:255',
             'country' => 'required',
             'email' => 'required',
-            'selectedCheckIn' => 'required|date|date-format:Y-m-d',
-            'selectedCheckOut' => 'required|date|date-format:Y-m-d',
             'guests' => 'required',
             'room_price' => '',
             'address' => '',

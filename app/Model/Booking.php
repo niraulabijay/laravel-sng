@@ -17,11 +17,12 @@ class Booking extends Model
     const STATUS_ABANDONED = 5;
 
     protected $fillable = [
-        'user_id', 'room_id', 'check_in', 'check_out', 'booking_room_price', 'status',
+        'user_id', 'check_in', 'check_out', 'booking_room_price', 'status',
         'first_name', 'last_name', 'address', 'postCode', 'city', 'country', 'phone', 'message'
     ];
 
-    public function rooms(){
+    public function rooms()
+    {
         return $this->belongsToMany(Room::class,'booking_details','booking_id','room_id');
     }
 

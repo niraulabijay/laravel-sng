@@ -27,6 +27,7 @@ Route::group([
 //    Route::get('user', 'UserController@index');
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
+    Route::get('getuser','AuthController@getUserByToken');
     // Route::get('/brands','BrandController@getBrands');
     // Route::get('/brand/front/{slug}','BrandController@getFrontData');
     // Route::get('/destinations','FrontController@destinations');
@@ -45,6 +46,7 @@ Route::group([
     Route::get('/aboutpage','SiteController@aboutpage');
     //Booking
     Route::post('/booking','BookingController@search');
+    Route::post('create/booking','BookingController@store');
     //contact
     Route::post('/contact/send','ContactController@create');
     Route::post('/package-submit','ContactController@postPackage');
