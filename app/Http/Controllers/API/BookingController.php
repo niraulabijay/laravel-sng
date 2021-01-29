@@ -33,6 +33,7 @@ class BookingController extends Controller
     {
         try {
             $search = $request->all();
+            $rooms_without_booking = [];
             $room_search = $this->bookingRepo->availableRoomsType($search);
             $data['checkIn'] = $search['selectionRange']['startDate'];
             $data['checkOut'] = $search['selectionRange']['endDate'];
@@ -44,7 +45,7 @@ class BookingController extends Controller
                 {
                     if (in_array($room, $room_search))
                     {
-                        array_push($room_search, $room);
+                        array_push($rooms_without_booking, $room);
                     }
                 }
                 
@@ -52,7 +53,7 @@ class BookingController extends Controller
            
             return response()->json([
                 'status' => 'success',
-                'rooms' => RoomTypeResource::collection(array_unique($room_search))
+                'rooms' => RoomTypeResource::collection(array_unique($rooms_without_booking))
             ],200);
         }catch (\Exception $e){
             return response()->json($e->getMessage(),400);
