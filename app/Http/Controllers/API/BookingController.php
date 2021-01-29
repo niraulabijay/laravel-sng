@@ -34,15 +34,18 @@ class BookingController extends Controller
         try {
             $search = $request->all();
             $room_search = $this->bookingRepo->availableRoomsType($search);
-
-            $data['checkIn'] = $search['startDate'];
-            $data['checkOut'] = $search['endDate'];
+            $data['checkIn'] = $search['selectionRange']['startDate'];
+            $data['checkOut'] = $search['selectionRange']['endDate'];
             $available = $this->bookingRepo->availableRooms($data);
             foreach ($available as $room) {
                 $room = RoomType::findOrFail($room->room_type_id);
-                if (in_array($room, $room_search)) {
-                    array_push($room_search, $room);
+                if($room->rooms()->count() >= count($request->occupancy))
+                {
+                    if (in_array($room, $room_search)) {
+                        array_push($room_search, $room);
+                    }
                 }
+
             }
             return response()->json([
                 'status' => 'success',
