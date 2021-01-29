@@ -72,41 +72,45 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     public function availableRoomsType($data)
     {
         $rooms = [];
-
-        foreach($data['occupancy'] as $key=>$occupancy)
+        $all_rooms = RoomType::all();
+        foreach($all_rooms as $room)
         {
-            $room_type = RoomType::whereHas('rooms')->where('no_of_adult','>=',$occupancy['adult'])
-            ->where('no_of_child','>=',$occupancy['child'])
-            ->where('max_occupancy','>=',$data['occupancy'][$key]['adult']+$data['occupancy'][$key]['child'])
-            ->first();
-            
-            if($rooms == null && $room_type)
+            foreach($data['occupancy'] as $key=>$occupancy)
             {
-               if($room_type->rooms()->count() >= count($data['occupancy']))
-               {
-                array_push($rooms,$room_type);
-               }
-               
-            }
-            else
-            {
-                // if($this->existsInArray($room_type,$rooms))
-                // {
-                //     array_push($rooms,$room_type);
-                // }
-               
-                if($room_type && !in_array($room_type, $rooms, true))
+                $room_type = RoomType::where('id',$room->id)->whereHas('rooms')->where('no_of_adult','>=',$occupancy['adult'])
+                ->where('no_of_child','>=',$occupancy['child'])
+                ->where('max_occupancy','>=',$data['occupancy'][$key]['adult']+$data['occupancy'][$key]['child'])
+                ->first();
+                
+                if($rooms == null && $room_type)
                 {
-                    if($room_type->rooms()->count() >= count($data['occupancy']))
-                    {
-                            array_push($rooms,$room_type);
-                    }
+                   if($room_type->rooms()->count() >= count($data['occupancy']))
+                   {
+                    array_push($rooms,$room_type);
+                   }
+                   
                 }
-              
+                else
+                {
+                    // if($this->existsInArray($room_type,$rooms))
+                    // {
+                    //     array_push($rooms,$room_type);
+                    // }
+                   
+                    if($room_type && !in_array($room_type, $rooms, true))
+                    {
+                        if($room_type->rooms()->count() >= count($data['occupancy']))
+                        {
+                                array_push($rooms,$room_type);
+                        }
+                    }
+                  
+                }
+    
+    
             }
-
-
         }
+       
         return $rooms;
 
     }
