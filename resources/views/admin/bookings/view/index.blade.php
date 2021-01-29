@@ -61,13 +61,21 @@
                                 <input type="hidden" name="searchEnd">
                             </div>
                             <div class="form-group">
-                                <label>Room Types:</label>
-                                @foreach($roomTypes as $roomType)
+                                <label>Booking Status:</label>
+                                @foreach(\App\Model\Booking::listStatus() as $key=>$status)
                                     <div>
-                                        <input name="roomTypes[{{$loop->iteration}}]" type="checkbox" class="roomTypeCheckbox" value="{{$roomType->id}}"> {{$roomType->title}}
+                                        <input type="checkbox" class="statusCheckbox" name="status[]" value="{{$key}}">&nbsp;{{ $status }}
                                     </div>
                                 @endforeach
                             </div>
+                            {{--<div class="form-group">--}}
+                                {{--<label>Room Types:</label>--}}
+                                {{--@foreach($roomTypes as $roomType)--}}
+                                    {{--<div>--}}
+                                        {{--<input name="roomTypes[{{$loop->iteration}}]" type="checkbox" class="roomTypeCheckbox" value="{{$roomType->id}}"> {{$roomType->title}}--}}
+                                    {{--</div>--}}
+                                {{--@endforeach--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                 </form>
@@ -123,7 +131,7 @@
     </script>
 
     <script>
-        $('.roomTypeCheckbox').on('click',function(){
+        $('.statusCheckbox').on('click',function(){
             loadCalendar();
         })
     </script>
@@ -139,7 +147,6 @@
             var today = moment.now();
             var url = "{{ route('admin.booking.search')}}";
             var formData = new FormData($('#filterForm')[0]);
-            console.log(...formData);
             var el = $('.data_container');
             $.ajax({
                 type: "POST",
@@ -153,9 +160,9 @@
                 },
                 success: function (data) {
                     $('.booking-container').html(data);
-                    console.log(data);
                 },
                 error: function (data) {
+                    toastr.error(data.responseText, "Server Error");
                     console.log(data);
                 },
                 complete: function(){
@@ -178,6 +185,34 @@
                     padding: 0,
                     color: '#00000',
                     backgroundColor: 'transparent'
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function viewBooking(el) {
+            var id = $(el).attr('data-id');
+            var url = "{{ route('admin.booking.view',":id") }}";
+            url = url.replace(":id",id);
+            $.ajax({
+                type: "GET",
+                url: url,
+                contentType: false,
+                processData: false,
+                beforeSend: function(){
+                    blockElement(el);
+                },
+                success: function (data) {
+                    $('.booking-container').html(data);
+                },
+                error: function (data) {
+                    toastr.error(data.responseText, "Server Error");
+                    console.log(data);
+                },
+                complete: function(){
+                    $('.booking-container').show();
+                    $(el).unblock();
                 }
             });
         }

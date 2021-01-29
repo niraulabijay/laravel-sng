@@ -43,15 +43,15 @@ class ContactController extends Controller
     public function postPackage(Request $request){
         try{
             $data = $request->all();
-            $package = $this->cms->getGlobalPostSingleById($data['package_id']);
+            $package = $this->cms->getGlobalPostSingleById($data['id']);
             if($package){
                 $packageSubmission = PackageSubmission::create([
                     'package_id' => $package->id,
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'phone' => $data['contact'],
-                    'tour_date' => $data['tour_date'],
-                    'no_of_persons' => $data['no_of_persons'],
+                    'tour_date' => $data['datepick'],
+                    'no_of_persons' => $data['number'],
                     'message' => $data['message']
                 ]);
                 $packageSubmission->save();

@@ -144,10 +144,15 @@ class BookingController extends Controller
         $params = [
             'startDate' => $request->searchStart,
             'endDate' => $request->searchEnd,
-            'roomTypes' => $request->roomTypes ?? [],
+            'status' => $request->status ?? [],
         ];
         $bookings = $this->bookingRepo->getFilterData($params);
         $view = view('admin.bookings.view.table',compact('bookings','params'))->render();
         return response()->json($view,200);
+    }
+
+    public function viewBooking($id){
+        $booking = $this->bookingRepo->find($id);
+        dd($booking);
     }
 }

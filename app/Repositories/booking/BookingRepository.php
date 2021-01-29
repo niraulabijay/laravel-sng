@@ -31,8 +31,8 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     public function find($id){
         $booking = $this->model->findById($id);
         return $this->format($booking);
-
     }
+
 
     public function availableRooms($data = []){
         $checkIn = $data['checkIn'];
@@ -68,18 +68,18 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
 //        })->orWhereDoesntHave('bookings')->get();
 
     }
-    
+
     public function availableRoomsType($data)
     {
         $rooms = [];
-        
+
         foreach($data['occupancy'] as $key=>$occupancy)
         {
             $room_type = RoomType::where('no_of_adult','>=',$occupancy['adult'])
             ->where('no_of_child','>=',$occupancy['child'])
             ->where('max_occupancy','>=',$data['occupancy'][$key]['adult']+$data['occupancy'][$key]['child'])
             ->first();
-         
+
             if($rooms == null && $room_type)
             {
                 array_push($rooms,$room_type);
@@ -92,19 +92,19 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
                 // }
                    if($room_type && !in_array($room_type, $rooms, true)){
                     array_push($rooms,$room_type);
-                }  
+                }
             }
-       
-        
+
+
         }
         return $rooms;
-        
+
     }
 
     public function existsInArray($entry, $array) {
-    
+
         foreach ($array as $compare) {
-            if ($compare->id == $entry->id) 
+            if ($compare->id == $entry->id)
             {
                 return false;
             }
@@ -154,18 +154,8 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         $bookings = Booking::query();
         $bookings = $bookings->where('created_at','>',$params['startDate'])
             ->where('created_at','<=',$params['endDate']);
-        if(count($params['roomTypes']) > 0){
-            $roomTypes = RoomType::whereIn('id',$params['roomTypes'])->get();
-            $rooms = Room::whereIn('room_type_id',$roomTypes->pluck('id')->toArray() ?? [])->get();
-            // return $rooms;
-            $booking = $bookings->whereHas('bookingDetails', function ($query) use($rooms) {
-                foreach($rooms as $room){
-                    $query->where('room_id', $room->id);
-                }
-            });
-            with(['bookingDetails' => function ($query) use ($rooms) {
-                $query->whereIn('room_id',$rooms->pluck('id')->toArray() ?? []);
-            }]);
+        if(count($params['status']) > 0){
+            $bookings = $bookings->whereIn('status',$params['status']);
         }
         $bookings = $bookings->get();
         return $bookings;

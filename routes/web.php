@@ -204,6 +204,7 @@ Route::group([
 
     Route::get('/booking/all','BookingController@preview')->name('booking.preview');
     Route::post('/booking/all','BookingController@searchBookings')->name('booking.search');
+    Route::get('/booking/view/{id}','BookingController@viewBooking')->name('booking.view');
 
     //site Setting
     Route::get('/site-setting','SettingController@index')->name('site.setting');

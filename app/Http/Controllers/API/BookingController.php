@@ -31,23 +31,26 @@ class BookingController extends Controller
    
     public function search(Request $request)
     {
-        
-        $search = $request->all();
-        $room_search = $this->bookingRepo->availableRoomsType($search);
-        
-        $data['checkIn'] = $search['selectionRange']['startDate'];
-        $data['checkOut'] = $search['selectionRange']['endDate'];
-        $available = $this->bookingRepo->availableRooms($data);
-        foreach($available as $room)
-        {
-            $room = RoomType::findOrFail($room->room_type_id);
-            if(in_array($room,$room_search))
-            {
-                array_push($room_search,$room);
+        try {
+            $search = $request->all();
+            $room_search = $this->bookingRepo->availableRoomsType($search);
+
+            $data['checkIn'] = $search['startDate'];
+            $data['checkOut'] = $search['endDate'];
+            $available = $this->bookingRepo->availableRooms($data);
+            foreach ($available as $room) {
+                $room = RoomType::findOrFail($room->room_type_id);
+                if (in_array($room, $room_search)) {
+                    array_push($room_search, $room);
+                }
             }
-        }   
-        return RoomTypeResource::collection(array_unique($room_search));
-        
+            return response()->json([
+                'status' => 'success',
+                'rooms' => RoomTypeResource::collection(array_unique($room_search))
+            ],200);
+        }catch (\Exception $e){
+            return response()->json($e->getMessage(),400);
+        }
        
     }
 

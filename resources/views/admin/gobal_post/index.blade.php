@@ -110,8 +110,6 @@
 </script>
 
 <script>
-
-
         $('.widget-content .warning.confirm').on('click', function (event ) {
             $this = $(this);
             event.preventDefault();
