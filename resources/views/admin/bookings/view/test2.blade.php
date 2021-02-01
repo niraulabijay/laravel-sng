@@ -8,13 +8,13 @@
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="plugins/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('cork/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('cork/assets/css/plugins.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('cork/plugins/perfect-scrollbar/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
 
     <!--  BEGIN CUSTOM STYLE FILE  -->
-    <link href="assets/css/apps/invoice.css" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/css/apps/invoice.css')}}" rel="stylesheet" type="text/css" />
     <!--  END CUSTOM STYLE FILE  -->
     
 </head>
@@ -3013,19 +3013,19 @@
     <!-- END MAIN CONTAINER -->
 
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="assets/js/libs/jquery-3.1.1.min.js"></script>
-    <script src="bootstrap/js/popper.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="{{asset('cork/assets/js/libs/jquery-3.1.1.min.js')}}"></script>
+    <script src="{{asset('cork/bootstrap/js/popper.min.js')}}"></script>
+    <script src="{{asset('cork/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('cork/plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
+    <script src="{{asset('cork/assets/js/app.js')}}"></script>
     
     <script>
         $(document).ready(function() {
             App.init();
         });
     </script>
-    <script src="assets/js/custom.js"></script>
+    <script src="{{asset('cork/assets/js/custom.js')}}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
-    <script src="assets/js/apps/invoice.js"></script>
+    <script src="{{asset('cork/assets/js/apps/invoice.js')}}"></script>
 </body>
 </html>

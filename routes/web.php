@@ -23,7 +23,9 @@ Route::get('clear_cache', function () {
     \Artisan::call('view:clear');
     dd("Cache is cleared");
 });
-
+Route::get('/test',function(){
+    return view('admin.bookings.view.test');
+});
 //Authentication Routes
 Route::post('/logout', 'authentication\LogController@logout')->name('logout');
 Route::post('/admin/login/', 'authentication\LogController@check')->name('login_check');

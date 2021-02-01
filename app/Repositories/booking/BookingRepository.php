@@ -33,6 +33,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         return $this->format($booking);
     }
 
+    
 
     public function availableRooms($data = []){
         $checkIn = $data['checkIn'];

@@ -11,6 +11,7 @@
     <!-- Block UI -->
     <link href="{{asset('cork/assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{asset('cork/plugins/animate/animate.css')}}">
+  
     <style>
         .data_container{
             min-height: 500px;
@@ -21,7 +22,9 @@
     <link rel="stylesheet" type="text/css" href="{{asset('cork/plugins/table/datatable/datatables.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('cork/plugins/table/datatable/custom_dt_html5.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('cork/plugins/table/datatable/dt-global_style.css')}}">
-
+    
+    <link href="{{asset('cork/assets/css/apps/invoice.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('cork/plugins/perfect-scrollbar/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('header')
@@ -80,15 +83,17 @@
                     </div>
                 </form>
             </div>
+           
             <div class="col-9 text-right">
                 <div class="card">
                     <div class="card-body">
                         <div class="booking-container">
-
+                            
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
@@ -102,11 +107,12 @@
     <script src="{{ asset('cork/plugins/table/datatable/button-ext/jszip.min.js') }}"></script>
     <script src="{{ asset('cork/plugins/table/datatable/button-ext/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('cork/plugins/table/datatable/button-ext/buttons.print.min.js') }}"></script>
-
+    <script src="{{asset('cork/plugins/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="{{asset('cork/plugins/blockui/jquery.blockUI.min.js')}}"></script>
     <script src="{{asset('cork/plugins/blockui/custom-blockui.js')}}"></script>
-
+    
+ 
     <!-- DatePicker JS -->
     <script>
         $('input[name="searchStart"]').val(moment().subtract(10, "days").format('YYYY-MM-DD'));
@@ -128,6 +134,7 @@
             $('input[name="searchEnd"]').val(endDate);
             loadCalendar();
         })
+        
     </script>
 
     <script>
@@ -212,6 +219,8 @@
                 },
                 complete: function(){
                     $('.booking-container').show();
+                    $('#BookingModal').modal('show');
+                    $('invoice-00001').show();
                     $(el).unblock();
                 }
             });

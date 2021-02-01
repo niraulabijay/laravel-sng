@@ -29,6 +29,7 @@
                             <td>{{$booking->bookingDetails ? $booking->bookingDetails->count() : ''}}</td>
                             <td>
                                 <a href="#" title="View" data-id="{{$booking->id}}" onclick="viewBooking(this)" class="badge badge-success confirm"><i class="fa fa-eye"></i></a>
+                                <a href="" class="badge badge-info confirm"><i class="fa fa-pencil"></i></a>
                                 {{--<a href="{{ route('admin.booking.view',[$booking->id]) }}" title="Edit" class="badge badge-success"> <i data-feather="edit"></i></a>--}}
                             </td>
                         </tr>

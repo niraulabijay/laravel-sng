@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBooking;
+use App\Model\Booking;
 use App\Model\Room;
 use App\Repositories\booking\BookingInterface;
 use App\Repositories\hotel\HotelRepository;
@@ -135,6 +136,7 @@ class BookingController extends Controller
     }
 
     public function preview(){
+        
         $roomTypes = $this->roomTypeRepo->getAllActiveRoomTypes();
         return view('admin.bookings.view.index', compact('roomTypes'));
     }
@@ -152,7 +154,9 @@ class BookingController extends Controller
     }
 
     public function viewBooking($id){
-        $booking = $this->bookingRepo->find($id);
-        dd($booking);
+    
+        $booking = $this->bookingRepo->findById($id);
+        return view('admin.bookings.view.modal',['booking'=>$booking]);
+        
     }
 }

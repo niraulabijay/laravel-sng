@@ -83,9 +83,11 @@ class CmsController extends Controller
         [
             'id' => $blog->id,
             'slug'=>$blog->slug,
+            'title'=>$blog->title,
             'description'=>$blog->post_content,
             'author' => $this->cms->getGlobalPostMetaByKey($blog,'author') ?? null,
             'image'=>$blog->image ? asset($blog->image) : null,
+            'date'=>date('Y-m-d',strtotime($blog->created_at))
         ];
     }
     private function getSingleValueRepeaterMeta($post, $key){
