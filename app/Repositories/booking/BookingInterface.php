@@ -26,4 +26,6 @@ interface BookingInterface{
 
     public function availableRoomsType($data);
 
+    public function updateBooking($booking,$request);
+
 }

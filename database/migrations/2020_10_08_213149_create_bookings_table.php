@@ -29,6 +29,7 @@ class CreateBookingsTable extends Migration
             $table->string('country')->nullable();
             $table->string('phone')->nullable();
             $table->longText('message')->nullable();
+            $table->string('gender')->nullable();
             $table->timestamps();
             $table->enum('source', ['Online', 'Reception'])->default('Online');
             $table->softDeletes();

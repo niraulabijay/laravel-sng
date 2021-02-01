@@ -11,6 +11,7 @@
     <!-- Block UI -->
     <link href="{{asset('cork/assets/css/components/custom-modal.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{asset('cork/plugins/animate/animate.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('cork/assets/css/forms/switches.css') }}">
   
     <style>
         .data_container{
@@ -70,6 +71,7 @@
                                         <input type="checkbox" class="statusCheckbox" name="status[]" value="{{$key}}">&nbsp;{{ $status }}
                                     </div>
                                 @endforeach
+
                             </div>
                             {{--<div class="form-group">--}}
                                 {{--<label>Room Types:</label>--}}
@@ -149,6 +151,7 @@
         $(document).ready(function () {
             loadCalendar();
         });
+        
 
         function loadCalendar(){
             var today = moment.now();
@@ -195,6 +198,8 @@
                 }
             });
         }
+
+     
     </script>
 
     <script>
@@ -226,5 +231,22 @@
             });
         }
     </script>
+    <script>
+        function activeBooking(el)
+        {
+            var id = $(el).attr('data-id');
+            var url = "{{route('admin.booking.update',":id")}}"
+           
+            $.ajax({
+                type: 'put',
+                url: url,
+                data:{data:id,"_token":"{{csrf_token()}}"},
+                success: function(data)
+                {
 
+                },
+
+            })
+        }
+    </script>
 @endpush

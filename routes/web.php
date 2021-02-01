@@ -208,6 +208,8 @@ Route::group([
     Route::post('/booking/all','BookingController@searchBookings')->name('booking.search');
     Route::get('/booking/view/{id}','BookingController@viewBooking')->name('booking.view');
 
+    Route::put('booking/update/{id}','BookingController@updateBooking')->name('booking.update');
+
     //site Setting
     Route::get('/site-setting','SettingController@index')->name('site.setting');
     Route::post('/site-setting','SettingController@update')->name('site.update');

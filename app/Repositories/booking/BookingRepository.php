@@ -154,6 +154,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
             'country' => $data['country'] ?? null,
             'phone' => $data['phone'] ?? null,
             'message' => $data['message'] ?? null,
+            'gender' => $data['radioOption'] ?? null
         ]);
     }
 
@@ -190,6 +191,16 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         $booking->update();
         $booking->update();
         return $booking;
+    }
+
+    public function updateBooking($booking,$request)
+    {    
+       $booking = Booking::findOrFail($booking['data']);
+       $booking->update([
+           'status'=>$booking->status ? 0 : 1
+       ]);
+     
+        return response()->json($booking);
     }
 
 }

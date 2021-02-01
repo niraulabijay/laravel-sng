@@ -153,10 +153,17 @@ class BookingController extends Controller
         return response()->json($view,200);
     }
 
-    public function viewBooking($id){
+    public function viewBooking($id)
+    {
     
         $booking = $this->bookingRepo->findById($id);
         return view('admin.bookings.view.modal',['booking'=>$booking]);
         
     }
+
+    public function updateBooking(Request $request,$id)
+    {
+        
+        dd($this->bookingRepo->updateBooking($request->all(),$id));
+    }   
 }

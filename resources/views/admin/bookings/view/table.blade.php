@@ -15,12 +15,14 @@
                         <th>Check-In</th>
                         <th>Check-Out</th>
                         <th>Rooms</th>
+                        <th>Active</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @if(isset($bookings))
                         @foreach($bookings as $booking)
+                        @include('admin.bookings.view.modal-booking')
                         <tr>
                             <td>{{$loop->iteration}}</td>
                             <td>{{$booking->user->name}}</td>
@@ -28,8 +30,15 @@
                             <td>{{$booking->check_out}}</td>
                             <td>{{$booking->bookingDetails ? $booking->bookingDetails->count() : ''}}</td>
                             <td>
+                                <label class="switch s-outline s-outline-danger  mr-4">
+                                    <input type="checkbox" onclick="activeBooking(this)" value="{{$booking->active}}" data-id="{{$booking->id}}" @if($booking->status) checked @endif>
+                                    <span class="slider round"></span>
+                                </label>
+                      
+                            </td>
+                            <td>
                                 <a href="#" title="View" data-id="{{$booking->id}}" onclick="viewBooking(this)" class="badge badge-success confirm"><i class="fa fa-eye"></i></a>
-                                <a href="" class="badge badge-info confirm"><i class="fa fa-pencil"></i></a>
+                                <a href=""  data-toggle="modal" data-target="#exampleModal{{$booking->id}}" class="badge badge-info confirm"><i class="fa fa-pencil"></i></a>
                                 {{--<a href="{{ route('admin.booking.view',[$booking->id]) }}" title="Edit" class="badge badge-success"> <i data-feather="edit"></i></a>--}}
                             </td>
                         </tr>
