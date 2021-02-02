@@ -49,7 +49,7 @@ class BookingSuccess extends Notification
                     ->line('The Room has been Successfully Booked!')
                     ->line('Start Date'.' - '.$this->booking['check_in'])
                     ->line('End Date'.' - '.$this->booking['check_out'])
-                    ->line('Room No'.' - '.$this->room['title'])
+                    ->line('Room Name'.' - '.$this->room['title'])
                     ->line('Our Team will contact you soon!')
                     ->line('Thank you for Booking!');
     }

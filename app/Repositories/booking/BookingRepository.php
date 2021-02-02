@@ -129,6 +129,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     }
 
     public function adminBooking($user, $data){
+      
         $data['user_id'] = $user->id;
         $booking = $this->store($data);
         foreach($data['guests'] as $key=>$guest){
@@ -170,7 +171,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
 
             $bookingDetails = BookingDetail::create([
                 'booking_id'=>$booking->id,
-                'room_id' => $data['room_id'],
+                'room_id' => $key,
                 'guests' => $guest['adult'] + $guest['child'],
                 'allocated_price' => $data['room_price'] ?? 0,
             ]);
@@ -178,7 +179,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         }
         if($booking)
         {
-            $room = Room::find($data['room_id']);
+            $room = RoomType::find($data['room_id']);
             $user->notify(new BookingSuccess($booking,$room));
         }
         

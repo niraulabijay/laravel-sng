@@ -155,8 +155,9 @@ class BookingController extends Controller
 
     public function viewBooking($id)
     {
-    
+
         $booking = $this->bookingRepo->findById($id);
+        
         return view('admin.bookings.view.modal',['booking'=>$booking]);
         
     }
