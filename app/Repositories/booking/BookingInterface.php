@@ -28,4 +28,6 @@ interface BookingInterface{
 
     public function updateBooking($booking,$request);
 
+    public function apiBooking($user,$array);
+
 }

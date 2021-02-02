@@ -68,17 +68,19 @@ class BookingController extends Controller
         $validated = $request->validate([
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'country' => 'required',
+            'regionOption' => 'required',
             'email' => 'required',
-            'guests' => 'required',
-            'selectedCheckIn'=>'',
-            'selectedCheckOut'=>'',
+            'occupancy' => 'required',
+            'startDate'=>'',
+            'endDate'=>'',
             'room_price' => '',
             'address' => '',
             'city' => '',
             'post_code' => '',
             'phone' => '',
             'message' => '',
+            'radioOption'=>'',
+            'room_id'=>'required',
         ]);
 
         try{
@@ -93,7 +95,8 @@ class BookingController extends Controller
                 ]);
             }
             $validated['user_id'] = $user->id;
-            $booking = $this->bookingRepo->store($validated);
+            $booking = $this->bookingRepo->apiBooking($user,$validated);
+
             if($booking)
             {
                 DB::commit();

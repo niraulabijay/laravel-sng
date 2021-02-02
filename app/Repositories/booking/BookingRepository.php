@@ -6,6 +6,7 @@ use App\Model\Booking;
 use App\Model\BookingDetail;
 use App\Model\Room;
 use App\Model\RoomType;
+use App\Notifications\BookingSuccess;
 use App\Repositories\EloquentRepository;
 use App\Repositories\booking\BookingInterface;
 
@@ -141,6 +142,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         return $booking;
     }
     public function store($data){
+
         return Booking::create([
             'user_id' => $data['user_id'],
             'check_in' => $data['selectedCheckIn'],
@@ -157,6 +159,54 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
             'gender' => $data['radioOption'] ?? null
         ]);
     }
+
+    public function apiBooking($user,$data)
+    {
+        
+        $data['user_id'] = $user->id;
+        $booking = $this->BookingApiStore($data);
+      
+        foreach($data['occupancy'] as $key=>$guest){
+
+            $bookingDetails = BookingDetail::create([
+                'booking_id'=>$booking->id,
+                'room_id' => $data['room_id'],
+                'guests' => $guest['adult'] + $guest['child'],
+                'allocated_price' => $data['room_price'] ?? 0,
+            ]);
+         
+        }
+        if($booking)
+        {
+            $room = Room::find($data['room_id']);
+            $user->notify(new BookingSuccess($booking,$room));
+        }
+        
+        return $booking;
+
+    }
+
+
+    public function BookingApiStore($data)
+    {
+
+        return Booking::create([
+            'user_id' => $data['user_id'],
+            'check_in' => $data['startDate'],
+            'check_out' => $data['endDate'],
+            'status' => Booking::STATUS_ACTIVE,
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'address' => $data['address'] ?? null,
+            'postCode' => $data['post_code'] ?? null,
+            'city' => $data['city'] ?? null,    
+            'country' => $data['regionOption'] ?? null,
+            'phone' => $data['phone'] ?? null,
+            'message' => $data['message'] ?? null,
+            'gender' => $data['radioOption'] ?? null
+        ]);
+    }
+    
 
     protected function format(Booking $booking){
         return [
@@ -196,11 +246,17 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     public function updateBooking($booking,$request)
     {    
        $booking = Booking::findOrFail($booking['data']);
-       $booking->update([
-           'status'=>$booking->status ? 0 : 1
-       ]);
-     
-        return response()->json($booking);
+       if($booking->status)
+       {
+            $booking->status =0;
+       }
+       else
+       {
+        $booking->status = 1;
+       }
+    
+       $booking->update([$booking]);
+       return response()->json($booking);
     }
 
 }
