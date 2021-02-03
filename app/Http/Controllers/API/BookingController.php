@@ -34,11 +34,12 @@ class BookingController extends Controller
         try {
             $search = $request->all();
             $rooms_without_booking = [];
-            $room_search = $this->bookingRepo->availableRoomsType($search);
+            $all_rooms = RoomType::where('status','Active')->get();
+            $room_search = $this->bookingRepo->availableRoomsType($search,$all_rooms);
             $data['checkIn'] = $search['selectionRange']['startDate'];
             $data['checkOut'] = $search['selectionRange']['endDate'];
             $available = $this->bookingRepo->availableRooms($data);
-         
+        
             foreach ($available as $room) {
                 $room = RoomType::findOrFail($room->room_type_id);
                 if($room->rooms()->count() >= count($request->occupancy))

@@ -39,26 +39,36 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     public function availableRooms($data = []){
         $checkIn = $data['checkIn'];
         $checkOut = $data['checkOut'];
+     
         $rooms = Room::whereDoesntHave('bookings', function ($query) use($checkIn, $checkOut){
-            $query->where(function ($q2) use ($checkIn, $checkOut) {
+            $query->where(function ($q2) use ($checkIn, $checkOut) 
+            {
                 $q2->where('check_in', '<=', $checkIn)
                     ->where('check_out', '>', $checkIn)
-                    ->where('check_out','<=',$checkOut);
+                    ->where('check_out','<=',$checkOut)
+                    ->whereIn('status',[1,2,3]);
+                    
                 })
                 ->orWhere(function ($q2) use ($checkIn, $checkOut) {
                     $q2->where('check_in', '>=', $checkIn)
-                        ->where('check_in', '<', $checkOut);
+                        ->where('check_in', '<', $checkOut)
+                        ->whereIn('status',[1,2,3]);
                 })
                 ->orWhere(function ($q2) use ($checkIn, $checkOut) {
                     $q2->where('check_out', '>', $checkIn)
-                        ->where('check_out', '<=', $checkOut);
+                        ->where('check_out', '<=', $checkOut)
+                        ->whereIn('status',[1,2,3]);
+                        
                 })
                 ->orWhere(function ($q2) use ($checkIn, $checkOut) {
                     $q2->where('check_in', '<', $checkIn)
-                        ->where('check_out', '>', $checkOut);
+                        ->where('check_out', '>', $checkOut)     
+                        ->whereIn('status',[1,2,3]);   
                 });
-        })->get();
+            })->get();
+     
         return $rooms;
+    
 
 //      Old Logic
 //        with('bookings')->whereHas('bookings', function ($q) use ($checkIn, $checkOut) {
@@ -71,10 +81,10 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
 
     }
 
-    public function availableRoomsType($data)
+    public function availableRoomsType($data,$all_rooms)
     {
         $rooms = [];
-        $all_rooms = RoomType::all();
+       
         foreach($all_rooms as $room)
         {
             foreach($data['occupancy'] as $key=>$occupancy)
@@ -132,6 +142,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
       
         $data['user_id'] = $user->id;
         $booking = $this->store($data);
+        
         foreach($data['guests'] as $key=>$guest){
             $bookingDetails = BookingDetail::create([
                 'booking_id'=>$booking->id,
@@ -166,12 +177,43 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         
         $data['user_id'] = $user->id;
         $booking = $this->BookingApiStore($data);
-      
+        $room = RoomType::with('rooms')->find($data['room_id']);
+        $data['checkIn'] = $data['startDate'];
+        $data['checkOut'] = $data['endDate'] ;
+        $available_rooms = $this->availableRooms($data);
+        $all_rooms = RoomType::where('id',$data['room_id'])->where('status','Active')->get();
+        $room_search = $this->availableRoomsType($data,$all_rooms);
+        $room_type_filter = [];
+        if($room_search && $available_rooms)
+        {
+            $pending_room= $all_rooms->first()->rooms;
+            $confirm_room = $pending_room->merge($available_rooms);
+            $confirm_room = $confirm_room->unique(function ($item) {
+
+                return $item;
+
+            });
+       
+            foreach($confirm_room->all() as $value)
+            {
+                if($value['room_type_id'] == $data['room_id'])
+                {
+                    array_push($room_type_filter,$value);
+                }
+            }
+  
+        }
+        else
+        {
+            return response()->json(["room is already booked"]);
+        }
+    
+
         foreach($data['occupancy'] as $key=>$guest){
 
             $bookingDetails = BookingDetail::create([
                 'booking_id'=>$booking->id,
-                'room_id' => $key,
+                'room_id' => $room_type_filter[$key]['id'],
                 'guests' => $guest['adult'] + $guest['child'],
                 'allocated_price' => $data['room_price'] ?? 0,
             ]);
@@ -179,7 +221,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         }
         if($booking)
         {
-            $room = RoomType::find($data['room_id']);
+           
             $user->notify(new BookingSuccess($booking,$room));
         }
         

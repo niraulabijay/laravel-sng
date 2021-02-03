@@ -18,13 +18,12 @@ interface BookingInterface{
     // Update total price of booking at the instant of booking
     public function updatePrice($booking);
 
-
     //Filter Booking in preview
     public function getFilterData($params);
 
     public function store($data);
 
-    public function availableRoomsType($data);
+    public function availableRoomsType($data,$array);
 
     public function updateBooking($booking,$request);
 
