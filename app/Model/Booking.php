@@ -61,4 +61,9 @@ class Booking extends Model
         return $this->first_name.' '.$this->last_name;
     }
 
+    public function payment()
+    {
+        return $this->hasOne(Payment::class,'booking_id','id');
+    }
+
 }

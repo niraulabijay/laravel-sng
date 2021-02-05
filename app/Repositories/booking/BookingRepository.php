@@ -176,53 +176,89 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     {
         
         $data['user_id'] = $user->id;
-        $booking = $this->BookingApiStore($data);
+         $booking = $this->BookingApiStore($data);
         $room = RoomType::with('rooms')->find($data['room_id']);
         $data['checkIn'] = $data['startDate'];
         $data['checkOut'] = $data['endDate'] ;
         $available_rooms = $this->availableRooms($data);
+      
         $all_rooms = RoomType::where('id',$data['room_id'])->where('status','Active')->get();
         $room_search = $this->availableRoomsType($data,$all_rooms);
         $room_type_filter = [];
         if($room_search && $available_rooms)
         {
-            $pending_room= $all_rooms->first()->rooms;
-            $confirm_room = $pending_room->merge($available_rooms);
+            $pending_room= collect($room_search)->first()->rooms;
+          
+            // $confirm_room = $pending_room->merge($available_rooms);
+            // $confirm_room = $confirm_room->unique(function ($item) {
+
+            //     return $item;
+            // });
+            
+            $confirm_room =  $available_rooms->each(function ($value, $key) use ($pending_room){
+                return collect($pending_room)->contains($value);
+            });
+          
             $confirm_room = $confirm_room->unique(function ($item) {
 
                 return $item;
-
             });
-       
-            foreach($confirm_room->all() as $value)
+            
+            // foreach($confirm_room->all() as $value)
+            // {
+            //     if($value['room_type_id'] == $data['room_id'])
+            //     {
+            //         array_push($room_type_filter,$value);
+            //     }
+            // }
+            foreach($confirm_room as $value)
             {
                 if($value['room_type_id'] == $data['room_id'])
                 {
                     array_push($room_type_filter,$value);
                 }
             }
+            // return $room_type_filter;
+
   
         }
         else
         {
             return response()->json(["room is already booked"]);
         }
-    
-
-        foreach($data['occupancy'] as $key=>$guest){
-
-            $bookingDetails = BookingDetail::create([
-                'booking_id'=>$booking->id,
-                'room_id' => $room_type_filter[$key]['id'],
-                'guests' => $guest['adult'] + $guest['child'],
-                'allocated_price' => $data['room_price'] ?? 0,
-            ]);
-         
-        }
-        if($booking)
+        
+        $bookingDetails = null;
+        if($room_type_filter)
         {
-           
+            foreach($data['occupancy'] as $key=>$guest){
+
+                $bookingDetails = BookingDetail::create([
+                    'booking_id'=>$booking->id,
+                    'room_id' => $room_type_filter[$key]['id'],
+                    'guests' => $guest['adult'] + $guest['child'],
+                    'allocated_price' => $data['room_price'] ?? 0,
+                ]);
+             
+            }
+        }
+        else
+        {
+            return response()->json("room is already booked");
+        }
+       
+        if($bookingDetails)
+        {
+           $booking->payment()->create([
+            'booking_id' => $booking->id,
+            'payment_method'=>'offline',
+            'payment_status'=>'unpaid',
+           ]);
             $user->notify(new BookingSuccess($booking,$room));
+        }
+        else
+        {
+            Booking::findOrFail($booking->id)->delete();
+            return response()->json(["status"=>"something went wrong!!"]);
         }
         
         return $booking;
