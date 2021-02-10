@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token()}}">
-    <title>CORK Admin Template - Login Cover Page</title>
+    <title>Login</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('cork/assets/img/favicon.ico') }}"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,600,700&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
                 <div class="form-container">
                     <div class="form-content">
 
-                        <h1 class="">Log In to <a href="index.html"><span class="brand-name">CORK</span></a></h1>
+                        <h1 class=""> <a href="index.html"><span class="brand-name">Login</span></a></h1>
                         <p class="signup-link">New Here? <a href="auth_register.html">Create an account</a></p>
                         <form class="text-left" method="post" id="login">
                             <div class="form">
@@ -72,7 +72,7 @@
 
                             </div>
                         </form>
-                        <p class="terms-conditions">© 2020 All Rights Reserved. <a href="index.html">CORK</a> is a product of Designreset. <a href="javascript:void(0);">Cookie Preferences</a>, <a href="javascript:void(0);">Privacy</a>, and <a href="javascript:void(0);">Terms</a>.</p>
+                        <p class="terms-conditions">© <script>document.write(new Date().getFullYear())</script> All Rights Reserved. <a href="index.html"></a> is a product of Designreset. <a href="javascript:void(0);">Cookie Preferences</a>, <a href="javascript:void(0);">Privacy</a>, and <a href="javascript:void(0);">Terms</a>.</p>
 
                     </div>
                 </div>

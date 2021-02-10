@@ -31,6 +31,7 @@ class BookingController extends Controller
    
     public function search(Request $request)
     {
+        
         try {
             $search = $request->all();
             $rooms_without_booking = [];
@@ -97,14 +98,14 @@ class BookingController extends Controller
             }
             $validated['user_id'] = $user->id;
             $booking = $this->bookingRepo->apiBooking($user,$validated);
-
             if($booking)
             {
-                DB::commit();
-                $success = true;
-                return response()->json($booking,200);
-            }else{
+                //DB::commit();
                 DB::rollBack();
+                $success = true;
+                return response()->json(["data"=>$booking->getData(),"status"=>$booking->getStatusCode()]);
+            }else{
+                DB::rollBack(); 
                 return response()->json("Failed to complete booking",400);
             }
 

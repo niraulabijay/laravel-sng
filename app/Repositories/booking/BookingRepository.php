@@ -9,6 +9,7 @@ use App\Model\RoomType;
 use App\Notifications\BookingSuccess;
 use App\Repositories\EloquentRepository;
 use App\Repositories\booking\BookingInterface;
+use Illuminate\Support\Facades\DB;
 
 class BookingRepository extends EloquentRepository implements BookingInterface{
 
@@ -176,19 +177,20 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     {
         
         $data['user_id'] = $user->id;
-         $booking = $this->BookingApiStore($data);
+        $booking = $this->BookingApiStore($data);
         $room = RoomType::with('rooms')->find($data['room_id']);
         $data['checkIn'] = $data['startDate'];
         $data['checkOut'] = $data['endDate'] ;
         $available_rooms = $this->availableRooms($data);
-      
         $all_rooms = RoomType::where('id',$data['room_id'])->where('status','Active')->get();
         $room_search = $this->availableRoomsType($data,$all_rooms);
+      
         $room_type_filter = [];
         if($room_search && $available_rooms)
         {
+            
             $pending_room= collect($room_search)->first()->rooms;
-          
+         
             // $confirm_room = $pending_room->merge($available_rooms);
             // $confirm_room = $confirm_room->unique(function ($item) {
 
@@ -220,11 +222,12 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
             }
             // return $room_type_filter;
 
-  
+           
         }
         else
         {
-            return response()->json(["room is already booked"]);
+            DB::rollBack(); 
+            return response()->json("room is already booked or no room not found",500);
         }
         
         $bookingDetails = null;
@@ -243,28 +246,41 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         }
         else
         {
-            return response()->json("room is already booked");
+           
+            DB::rollBack(); 
+            return response()->json("room is already booked",500);
         }
-       
+        $payment = null;
         if($bookingDetails)
         {
-           $booking->payment()->create([
+           $payment = $booking->payment()->create([
             'booking_id' => $booking->id,
             'payment_method'=>'offline',
             'payment_status'=>'unpaid',
            ]);
             $user->notify(new BookingSuccess($booking,$room));
+            
         }
         else
         {
-            Booking::findOrFail($booking->id)->delete();
-            return response()->json(["status"=>"something went wrong!!"]);
+            DB::rollBack(); 
+            return response()->json("something went wrong!!",500);
+        }
+        if($bookingDetails && $payment)
+        {
+            $booking['email'] =$user->email;
+          
+            return response()->json($booking,200);
+        }else
+        {
+            DB::rollBack(); 
+            return response()->json("something went wrong!!",500);
         }
         
-        return $booking;
+       
 
     }
-
+   
 
     public function BookingApiStore($data)
     {
