@@ -1,5 +1,7 @@
 <?php
 
+use App\Model\Booking;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,12 +63,8 @@ Route::group([
 ], function () {
 
     //dashboard
-    Route::get('/',function(){
-        return view('admin.index');
-    })->name('dashboard');
-
-
-
+    Route::get('/','DashboardController@index')->name('dashboard');
+    
     //    post type
     Route::get('/post_type', 'PostTypeController@index')->name('post_type');
     Route::get('/post_type/create', 'PostTypeController@create')->name('post_type.create');
@@ -170,6 +168,14 @@ Route::group([
     Route::get('/room-type/edit/{roomTypeSlug}','RoomTypeController@edit')->name('roomType.edit');
     Route::post('/room-type/edit/{roomTypeSlug}','RoomTypeController@update')->name('roomType.update');
     Route::post('/room-type/delete','RoomTypeController@delete')->name('roomType.delete');
+    Route::get('room-type/get_images/{slug}','RoomTypeController@get_gallery')->name('roomType.get_images');
+
+    //Room Type Images
+    
+    Route::get('roomimages/{roomTypeSlug}','RoomTypeController@images')->name('roomType.image');
+    Route::post('roomimages/upload/{roomTypeSlug}','RoomTypeController@upload')->name('roomType.upload_gallery');
+    Route::get('roomimages/delete_image/{galley_id}','RoomTypeController@deleteImage')->name('roomType.delete_gallery');
+
     // Room Routes
     Route::post('/room/add/','RoomController@store')->name('room.add');
     Route::get('room/edit/','RoomController@edit')->name('room.edit');
@@ -209,10 +215,27 @@ Route::group([
     Route::get('/booking/view/{id}','BookingController@viewBooking')->name('booking.view');
 
     Route::put('booking/update/{id}','BookingController@updateBooking')->name('booking.update');
+    Route::put('booking/status/update/{id}','BookingController@updateStatusBooking')->name('booking.status.update');
 
+    
     //site Setting
     Route::get('/site-setting','SettingController@index')->name('site.setting');
     Route::post('/site-setting','SettingController@update')->name('site.update');
+
+    //pop image
+    Route::group([
+        'prefix'=>'pop-images',
+        'as' => 'site.pop.'
+    ],function(){
+        Route::get('/','PopImageController@popImage')->name('index');
+        Route::get('/get_images','PopImageController@get_gallery')->name('get_images');
+        Route::post('/upload','PopImageController@upload')->name('upload_gallery');
+        Route::get('/delete_image/{gallery_id}','PopImageController@delete')->name('delete_gallery');
+        Route::put('/delete_image/{gallery_id}','PopImageController@update')->name('update_gallery');
+
+    });
+  
+
 
     //Album & Gallery ROUTES
     Route::group([
@@ -234,6 +257,9 @@ Route::group([
     //Package enquiry from user
     Route::get('/package-enquiries','ContactController@packageEnquiries')->name('packageEnquiries');
     Route::get('/package-enquiry/details/','ContactController@packageEnquiryDetail')->name('packageEnquiryDetail');
+    Route::get('/package-enquiries/delete/{id}','ContactController@packageDelete')->name('packageEnquiries.delete');
+    Route::get('/contact/delete/{id}','ContactController@contactDelete')->name('contact.delete');
+
 
 
 });

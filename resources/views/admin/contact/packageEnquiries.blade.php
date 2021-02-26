@@ -60,6 +60,7 @@
                                         <td>{{$enquiry->tour_date}}</td>
                                         <td>
                                             <a href="#" title="View" class="badge badge-success viewEnquiry" data-id="{{$enquiry->id}}"> <i data-feather="eye"></i></a>
+                                            <a href="{{route('admin.packageEnquiries.delete',$enquiry->id)}}" title="View" class="badge badge-danger" data-id="{{$enquiry->id}}"> <i data-feather="trash"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach

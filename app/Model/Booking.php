@@ -19,7 +19,7 @@ class Booking extends Model
     protected $fillable = [
         'user_id', 'check_in', 'check_out', 'booking_room_price', 'status',
         'first_name', 'last_name', 'address', 'postCode', 'city', 'country', 'phone', 'message'
-        ,'gender'
+        ,'gender','tax'
     ];
 
     public function rooms()
@@ -27,10 +27,12 @@ class Booking extends Model
         return $this->belongsToMany(Room::class,'booking_details','booking_id','room_id');
     }
 
+    
 
     public static function listStatus()
     {
-        return [
+        return 
+        [
             self::STATUS_ACTIVE    => 'Active',
             self::STATUS_CHECKIN => 'Check In',
             self::STATUS_CHECKOUT  => 'Check Out',

@@ -13,7 +13,8 @@ class CreateRoomTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('room_types', function (Blueprint $table) {
+        Schema::create('room_types', function (Blueprint $table) 
+        {
             $table->id();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
@@ -23,6 +24,13 @@ class CreateRoomTypesTable extends Migration
             $table->integer('no_of_adult')->nullable()->unsigned();
             $table->integer('no_of_child')->nullable()->unsigned();
             $table->integer('base_price')->nullable()->unsigned();
+            $table->integer('offer_price')->default(0);
+            $table->integer('discount_percent')->default(0);
+            $table->boolean('tax_status')->default(0);
+            $table->string('start_date')->nullable();
+            $table->string('end_date')->nullable();
+            $table->text('inclusions')->nullable();
+            $table->boolean('additional_price')->default(0);
             $table->unsignedBigInteger('hotel_id')->nullable();
             $table->timestamps();
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('restrict');

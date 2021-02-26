@@ -16,8 +16,11 @@ class GlobalController extends Controller
 {
     public function index($post_type)
     {
+       
         $postType = getPostTypeBySlug($post_type);
-        $posts = getGobalPostByPostType($post_type);
+        $posts = getGobalPostByPostType($post_type)->sortByDesc('id');
+    
+  
         return view('admin.gobal_post.index', compact('posts', 'postType'));
     }
 

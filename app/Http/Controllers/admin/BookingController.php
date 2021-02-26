@@ -138,6 +138,7 @@ class BookingController extends Controller
     public function preview(){
         
         $roomTypes = $this->roomTypeRepo->getAllActiveRoomTypes();
+        
         return view('admin.bookings.view.index', compact('roomTypes'));
     }
 
@@ -164,7 +165,13 @@ class BookingController extends Controller
 
     public function updateBooking(Request $request,$id)
     {
-        
+      
         dd($this->bookingRepo->updateBooking($request->all(),$id));
     }   
+
+    public function updateStatusBooking(Request $request ,$id)
+    {
+      
+        $this->bookingRepo->updateBookingStatus($request->all());
+    }
 }

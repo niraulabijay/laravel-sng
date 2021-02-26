@@ -60,6 +60,8 @@
                                         <td>{{ $contact->created_at->diffForHumans() }}</td>
                                         <td>
                                             <a href="#" title="View" class="badge badge-success viewEnquiry" data-id="{{$contact->id}}"> <i data-feather="eye"></i></a>
+                                            <a href="{{route('admin.contact.delete',$contact->id)}}"  class="badge badge-danger " data-id="{{$contact->id}}"> <i data-feather="trash"></i></a>
+
                                         </td>
                                     </tr>
                                     @endforeach

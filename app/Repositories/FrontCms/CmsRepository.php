@@ -16,6 +16,7 @@ use App\Model\PostType;
 class CmsRepository implements CmsInterface
 {
     public function getGlobalPostTypeBySlug($slug){
+
         return PostType::where('slug', $slug)->first();
     }
 
@@ -30,11 +31,30 @@ class CmsRepository implements CmsInterface
     public function getGlobalPostByPostTypeSlug($slug)
     {
         $postType = $this->getGlobalPostTypeBySlug($slug);
+
         $posts = [];
         if($postType){
-            $posts = $this->getGlobalPostByPostType($postType);
+            if($slug == 'video-gallery')
+            {
+                $posts = $this->getVideoLatestData($postType);
+            }
+            else
+            {
+                $posts = $this->getGlobalPostByPostType($postType);
+            }
+
         }
         return $posts;
+    }
+
+    public function getVideoLatestData($postType)
+    {
+        $globalPosts = GobalPost::where('post_type', $postType->id)
+            ->where('status','Active')
+            ->orderBy('id','DESC')
+            ->orderBy('position','ASC')
+            ->get();
+        return $globalPosts;
     }
 
     public function getGlobalPostByID($id){

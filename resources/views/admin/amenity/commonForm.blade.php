@@ -23,12 +23,15 @@
 </div>
 <div class="form-group mb-4">
     <label class="control-label">Amenity Icon *</label>
-    <input type="text" name="icon" value="{{ isset($editAmenity)? $editAmenity->icon() : '' }}" class="form-control"  placeholder="Amenity FA-Icon">
+    <input type="text" name="icon" value="{{ isset($editAmenity)? $editAmenity->icon() : '' }}" class="form-control"  placeholder="Amenity FLAT-Icon">
     @error('icon')
     <div class="text-danger" role="alert">
         {{ $message }}
     </div>
     @enderror
+    <div>
+        <a href="https://www.flaticon.com/">Icon Site</a>
+    </div>
 </div>
 <div class="form-group mb-4">
     <label class="control-label">Quick Description:</label>
@@ -38,7 +41,7 @@
 <div class="form-group mb-4 ">
     <div class="row">
         <div class="col-6">
-            <label class="control-label">Satus:</label>
+            <label class="control-label">Status:</label>
         </div>
         <div class="col-6">
             <label class="float-right switch s-icons s-outline  s-outline-success  mb-4 mr-2">

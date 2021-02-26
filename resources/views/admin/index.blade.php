@@ -7,7 +7,7 @@
     <link href="{{ asset('cork/assets/css/dashboard/dash_1.css') }}" rel="stylesheet" type="text/css" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
 
-
+    
 @endpush
 
 @section('header')
@@ -21,7 +21,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
                 <li class="breadcrumb-item"><a href="javascript:void(0);">Components</a></li>
-                <li class="breadcrumb-item active" aria-current="page">UI Kit</li>
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
             </ol>
         </nav>
     </div>
@@ -35,7 +35,7 @@
     <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
         <div class="widget widget-chart-one">
             <div class="widget-heading">
-                <h5 class="">Revenue</h5>
+                <h5 class="">Room Booking</h5>
                 <ul class="tabs tab-pills">
                     <li><a href="javascript:void(0);" id="tb_1" class="tabmenu">Monthly</a></li>
                 </ul>
@@ -54,7 +54,7 @@
     <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
         <div class="widget widget-chart-two">
             <div class="widget-heading">
-                <h5 class="">Sales by Category</h5>
+                <h5 class="">Total Booking</h5>
             </div>
             <div class="widget-content">
                 <div id="chart-2" class=""></div>
@@ -62,26 +62,26 @@
         </div>
     </div>
 
-    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
-        <div class="widget-two">
-            <div class="widget-content">
-                <div class="w-numeric-value">
-                    <div class="w-content">
-                        <span class="w-value">Daily sales</span>
-                        <span class="w-numeric-title">Go to columns for details.</span>
+        {{-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
+            <div class="widget-two">
+                <div class="widget-content">
+                    <div class="w-numeric-value">
+                        <div class="w-content">
+                            <span class="w-value">Daily sales</span>
+                            <span class="w-numeric-title">Go to columns for details.</span>
+                        </div>
+                        <div class="w-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
                     </div>
-                    <div class="w-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <div class="w-chart">
+                        <div id="daily-sales"></div>
                     </div>
-                </div>
-                <div class="w-chart">
-                    <div id="daily-sales"></div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div> --}}
 
-    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
+    {{-- <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
         <div class="widget-three">
             <div class="widget-heading">
                 <h5 class="">Summary</h5>
@@ -157,9 +157,9 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-xl-4 col-lg-12 col-md-6 col-sm-12 col-12 layout-spacing">
+    {{-- <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12 layout-spacing">
         <div class="widget-one">
             <div class="widget-content">
                 <div class="w-numeric-value">
@@ -176,9 +176,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="col-xl-5 col-lg-12 col-md-6 col-sm-12 col-12 layout-spacing">
+    {{-- <div class="col-xl-5 col-lg-12 col-md-6 col-sm-12 col-12 layout-spacing">
         <div class="widget widget-table-one">
             <div class="widget-heading">
                 <h5 class="">Transactions</h5>
@@ -449,7 +449,7 @@
             </div>
 
         </div>
-    </div>
+    </div> --}}
 
     <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
         <div class="widget widget-table-two">
@@ -464,62 +464,24 @@
                         <thead>
                             <tr>
                                 <th><div class="th-content">Customer</div></th>
-                                <th><div class="th-content">Product</div></th>
-                                <th><div class="th-content">Invoice</div></th>
+                                <th><div class="th-content">Check-In</div></th>
+                                <th><div class="th-content">Check-Out</div></th>
                                 <th><div class="th-content th-heading">Price</div></th>
                                 <th><div class="th-content">Status</div></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @if(isset($recent_orders))
+                            @foreach($recent_orders as $key => $value)
                             <tr>
                                 <td><div class="td-content customer-name"><img src="assets/img/90x90.jpg" alt="avatar">Andy King</div></td>
-                                <td><div class="td-content product-brand">Nike Sport</div></td>
-                                <td><div class="td-content">#76894</div></td>
-                                <td><div class="td-content pricing"><span class="">$88.00</span></div></td>
-                                <td><div class="td-content"><span class="badge outline-badge-primary">Shipped</span></div></td>
+                                <td><div class="td-content product-brand">{{$value->check_in}}</div></td>
+                                <td><div class="td-content">{{$value->check_out}}</div></td>
+                                <td><div class="td-content pricing"><span class="">${{$value->booking_room_price ?? 0}}</span></div></td>
+                                <td><div class="td-content"><span class="badge outline-badge-primary">@if($value->statusLabel()) {{$value->statusLabel()}} @endif</span></div></td>
                             </tr>
-                            <tr>
-                                <td><div class="td-content customer-name"><img src="assets/img/90x90.jpg" alt="avatar">Irene Collins</div></td>
-                                <td><div class="td-content product-brand">Speakers</div></td>
-                                <td><div class="td-content">#75844</div></td>
-                                <td><div class="td-content pricing"><span class="">$84.00</span></div></td>
-                                <td><div class="td-content"><span class="badge outline-badge-success">Paid</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div class="td-content customer-name"><img src="assets/img/90x90.jpg" alt="avatar">Laurie Fox</div></td>
-                                <td><div class="td-content product-brand">Camera</div></td>
-                                <td><div class="td-content">#66894</div></td>
-                                <td><div class="td-content pricing"><span class="">$126.04</span></div></td>
-                                <td><div class="td-content"><span class="badge outline-badge-danger">Pending</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div class="td-content customer-name"><img src="assets/img/90x90.jpg" alt="avatar">Luke Ivory</div></td>
-                                <td><div class="td-content product-brand">Headphone</div></td>
-                                <td><div class="td-content">#46894</div></td>
-                                <td><div class="td-content pricing"><span class="">$56.07</span></div></td>
-                                <td><div class="td-content"><span class="badge outline-badge-success">Paid</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div class="td-content customer-name"><img src="assets/img/90x90.jpg" alt="avatar">Ryan Collins</div></td>
-                                <td><div class="td-content product-brand">Sport</div></td>
-                                <td><div class="td-content">#89891</div></td>
-                                <td><div class="td-content pricing"><span class="">$108.09</span></div></td>
-                                <td><div class="td-content"><span class="badge outline-badge-primary">Shipped</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div class="td-content customer-name"><img src="assets/img/90x90.jpg" alt="avatar">Nia Hillyer</div></td>
-                                <td><div class="td-content product-brand">Sunglasses</div></td>
-                                <td><div class="td-content">#26974</div></td>
-                                <td><div class="td-content pricing"><span class="">$168.09</span></div></td>
-                                <td><div class="td-content"><span class="badge outline-badge-primary">Shipped</span></div></td>
-                            </tr>
-                            <tr>
-                                <td><div class="td-content customer-name"><img src="assets/img/90x90.jpg" alt="avatar">Sonia Shaw</div></td>
-                                <td><div class="td-content product-brand">Watch</div></td>
-                                <td><div class="td-content">#76844</div></td>
-                                <td><div class="td-content pricing"><span class="">$110.00</span></div></td>
-                                <td><div class="td-content"><span class="badge outline-badge-success">Paid</span></div></td>
-                            </tr>
+                            @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -531,7 +493,7 @@
         <div class="widget widget-table-three">
 
             <div class="widget-heading">
-                <h5 class="">Top Selling Product</h5>
+                <h5 class="">Top Selling Rooms</h5>
             </div>
 
             <div class="widget-content">
@@ -539,7 +501,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th><div class="th-content">Product</div></th>
+                                <th><div class="th-content">Rooms</div></th>
                                 <th><div class="th-content th-heading">Price</div></th>
                                 <th><div class="th-content th-heading">Discount</div></th>
                                 <th><div class="th-content">Sold</div></th>
@@ -548,54 +510,34 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">Speakers</div></td>
+                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">101</div></td>
                                 <td><div class="td-content"><span class="pricing">$84.00</span></div></td>
                                 <td><div class="td-content"><span class="discount-pricing">$10.00</span></div></td>
                                 <td><div class="td-content">240</div></td>
                                 <td><div class="td-content"><a href="javascript:void(0);" class="">Direct</a></div></td>
                             </tr>
                             <tr>
-                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">Sunglasses</div></td>
+                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">102</div></td>
                                 <td><div class="td-content"><span class="pricing">$56.07</span></div></td>
                                 <td><div class="td-content"><span class="discount-pricing">$5.07</span></div></td>
                                 <td><div class="td-content">190</div></td>
                                 <td><div class="td-content"><a href="javascript:void(0);" class="">Google</a></div></td>
                             </tr>
                             <tr>
-                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">Watch</div></td>
+                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">103</div></td>
                                 <td><div class="td-content"><span class="pricing">$88.00</span></div></td>
                                 <td><div class="td-content"><span class="discount-pricing">$20.00</span></div></td>
                                 <td><div class="td-content">66</div></td>
                                 <td><div class="td-content"><a href="javascript:void(0);" class="">Ads</a></div></td>
                             </tr>
                             <tr>
-                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">Laptop</div></td>
+                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">104</div></td>
                                 <td><div class="td-content"><span class="pricing">$110.00</span></div></td>
                                 <td><div class="td-content"><span class="discount-pricing">$33.00</span></div></td>
                                 <td><div class="td-content">35</div></td>
                                 <td><div class="td-content"><a href="javascript:void(0);" class="">Email</a></div></td>
                             </tr>
-                            <tr>
-                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">Camera</div></td>
-                                <td><div class="td-content"><span class="pricing">$126.04</span></div></td>
-                                <td><div class="td-content"><span class="discount-pricing">$26.04</span></div></td>
-                                <td><div class="td-content">30</div></td>
-                                <td><div class="td-content"><a href="javascript:void(0);" class="">Referral</a></div></td>
-                            </tr>
-                            <tr>
-                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">Shoes</div></td>
-                                <td><div class="td-content"><span class="pricing">$108.09</span></div></td>
-                                <td><div class="td-content"><span class="discount-pricing">$47.09</span></div></td>
-                                <td><div class="td-content">130</div></td>
-                                <td><div class="td-content"><a href="javascript:void(0);" class="">Google</a></div></td>
-                            </tr>
-                            <tr>
-                                <td><div class="td-content product-name"><img src="assets/img/90x90.jpg" alt="product">Headphone</div></td>
-                                <td><div class="td-content"><span class="pricing">$168.09</span></div></td>
-                                <td><div class="td-content"><span class="discount-pricing">$60.09</span></div></td>
-                                <td><div class="td-content">170</div></td>
-                                <td><div class="td-content"><a href="javascript:void(0);" class="">Ads</a></div></td>
-                            </tr>
+                         
                         </tbody>
                     </table>
                 </div>
@@ -611,8 +553,365 @@
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
     <script src="{{ asset('cork/plugins/apex/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('cork/assets/js/dashboard/dash_1.js') }}"></script>
+    {{-- <script src="{{ asset('cork/assets/js/dashboard/dash_1.js') }}"></script> --}}
+    <script>
+                var myData ={!!json_encode($data)!!};
+                var total_booking = {{$total_booking}};
+              
+        /*
+    ================================
+        Revenue Monthly | Render
+    ================================
+*/
+        var options1 = {
+  chart: {
+    fontFamily: 'Nunito, sans-serif',
+    height: 365,
+    type: 'area',
+    zoom: {
+        enabled: false
+    },
+    dropShadow: {
+      enabled: true,
+      opacity: 0.3,
+      blur: 5,
+      left: -7,
+      top: 22
+    },
+    toolbar: {
+      show: false
+    },
+    events: {
+      mounted: function(ctx, config) {
+        const highest1 = ctx.getHighestValueInSeries(0);
+        const highest2 = ctx.getHighestValueInSeries(1);
+
+
+        ctx.addPointAnnotation({
+          x: new Date(ctx.w.globals.seriesX[0][ctx.w.globals.series[0].indexOf(highest1)]).getTime(),
+          y: highest1,
+          label: {
+            style: {
+              cssClass: 'd-none'
+            }
+          },
+          customSVG: {
+              SVG: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#1b55e2" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>',
+              cssClass: undefined,
+              offsetX: -8,
+              offsetY: 5
+          }
+        })
+
+        ctx.addPointAnnotation({
+          x: new Date(ctx.w.globals.seriesX[1][ctx.w.globals.series[1].indexOf(highest2)]).getTime(),
+          y: highest2,
+          label: {
+            style: {
+              cssClass: 'd-none'
+            }
+          },
+          customSVG: {
+              SVG: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#e7515a" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>',
+              cssClass: undefined,
+              offsetX: -8,
+              offsetY: 5
+          }
+        })
+      },
+    }
+  },
+  colors: ['#1b55e2', '#e7515a'],
+  dataLabels: {
+      enabled: false
+  },
+  markers: {
+    discrete: [{
+    seriesIndex: 0,
+    dataPointIndex: 7,
+    fillColor: '#000',
+    strokeColor: '#000',
+    size: 5
+  }, {
+    seriesIndex: 5,
+    dataPointIndex: 11,
+    fillColor: '#000',
+    strokeColor: '#000',
+    size: 4
+  }]
+  },
+  subtitle: {
+    text: 'Total Booking',
+    align: 'left',
+    margin: 0,
+    offsetX: -10,
+    offsetY: 35,
+    floating: false,
+    style: {
+      fontSize: '14px',
+      color:  '#888ea8'
+    }
+  },
+  title: {
+    text: total_booking,
+    align: 'left',
+    margin: 0,
+    offsetX: -10,
+    offsetY: 0,
+    floating: false,
+    style: {
+      fontSize: '25px',
+      color:  '#0e1726'
+    },
+  },
+  stroke: {
+      show: true,
+      curve: 'smooth',
+      width: 2,
+      lineCap: 'square'
+  },
+  series: [{
+      name: 'Income',
+      data: myData
+  }, {
+      name: 'Expenses',
+      data: myData
+  }],
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  xaxis: {
+    axisBorder: {
+      show: false
+    },
+    axisTicks: {
+      show: false
+    },
+    crosshairs: {
+      show: true
+    },
+    labels: {
+      offsetX: 0,
+      offsetY: 5,
+      style: {
+          fontSize: '12px',
+          fontFamily: 'Nunito, sans-serif',
+          cssClass: 'apexcharts-xaxis-title',
+      },
+    }
+  },
+  yaxis: {
+    labels: {
+      formatter: function(value, index) {
+            return value
+        // return (value / 1000) + 'K'
+      },
+      offsetX: -22,
+      offsetY: 0,
+      style: {
+          fontSize: '12px',
+          fontFamily: 'Nunito, sans-serif',
+          cssClass: 'apexcharts-yaxis-title',
+      },
+    }
+  },
+  grid: {
+    borderColor: '#e0e6ed',
+    strokeDashArray: 5,
+    xaxis: {
+        lines: {
+            show: true
+        }
+    },   
+    yaxis: {
+        lines: {
+            show: false,
+        }
+    },
+    padding: {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: -10
+    }, 
+  }, 
+  legend: {
+    position: 'top',
+    horizontalAlign: 'right',
+    offsetY: -50,
+    fontSize: '16px',
+    fontFamily: 'Nunito, sans-serif',
+    markers: {
+      width: 10,
+      height: 10,
+      strokeWidth: 0,
+      strokeColor: '#fff',
+      fillColors: undefined,
+      radius: 12,
+      onClick: undefined,
+      offsetX: 0,
+      offsetY: 0
+    },    
+    itemMargin: {
+      horizontal: 0,
+      vertical: 20
+    }
+  },
+  tooltip: {
+    theme: 'dark',
+    marker: {
+      show: true,
+    },
+    x: {
+      show: false,
+    }
+  },
+  fill: {
+      type:"gradient",
+      gradient: {
+          type: "vertical",
+          shadeIntensity: 1,
+          inverseColors: !1,
+          opacityFrom: .28,
+          opacityTo: .05,
+          stops: [45, 100]
+      }
+  },
+  responsive: [{
+    breakpoint: 575,
+    options: {
+      legend: {
+          offsetY: -30,
+      },
+    },
+  }]
+}
+
+/*
+    ==================================
+        Sales By Category | Options
+    ==================================
+*/
+var options = {
+    chart: {
+        type: 'donut',
+        width: 380
+    },
+    colors: ['#5c1ac3', '#e2a03f', '#e7515a', '#e2a03f'],
+    dataLabels: {
+      enabled: false
+    },
+    legend: {
+        position: 'bottom',
+        horizontalAlign: 'center',
+        fontSize: '14px',
+        markers: {
+          width: 10,
+          height: 10,
+        },
+        itemMargin: {
+          horizontal: 0,
+          vertical: 8
+        }
+    },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: '65%',
+          background: 'transparent',
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              fontSize: '29px',
+              fontFamily: 'Nunito, sans-serif',
+              color: undefined,
+              offsetY: -10
+            },
+            value: {
+              show: true,
+              fontSize: '26px',
+              fontFamily: 'Nunito, sans-serif',
+              color: '20',
+              offsetY: 16,
+              formatter: function (val) {
+           
+                return val
+              }
+            },
+            total: {
+              show: true,
+              showAlways: true,
+              label: 'Total',
+              color: '#888ea8',
+              formatter: function (w) {
+                  
+                return w.globals.seriesTotals.reduce( function(a, b) {
+                   
+                  return a + b
+                }, 0)
+              }
+            }
+          }
+        }
+      }
+    },
+    stroke: {
+      show: true,
+      width: 25,
+    },
+    series: {!! json_encode($booking_status) !!},
+    labels: ['Paid', 'Pending', 'Cancel'],
+    responsive: [{
+        breakpoint: 1599,
+        options: {
+            chart: {
+                width: '350px',
+                height: '400px'
+            },
+            legend: {
+                position: 'bottom'
+            }
+        },
+
+        breakpoint: 1439,
+        options: {
+            chart: {
+                width: '250px',
+                height: '390px'
+            },
+            legend: {
+                position: 'bottom'
+            },
+            plotOptions: {
+              pie: {
+                donut: {
+                  size: '65%',
+                }
+              }
+            }
+        },
+    }]
+}
+var chart1 = new ApexCharts(
+    document.querySelector("#revenueMonthly"),
+    options1
+);
+
+chart1.render();
+/*
+    =================================
+        Sales By Category | Render
+    =================================
+*/
+var chart = new ApexCharts(
+    document.querySelector("#chart-2"),
+    options
+);
+
+chart.render();
+</script>
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
+
+
 
 @endpush
 

@@ -13,7 +13,7 @@ class RoomType extends Model implements HasMedia
     use Sluggable;
     use HasMediaTrait;
 
-    protected $fillable = ['title', 'slug', 'status', 'description', 'hotel_id', 'no_of_adult', 'no_of_child', 'base_price'];
+    protected $fillable = ['title', 'slug', 'inclusion','status','tax_status','description', 'hotel_id', 'no_of_adult', 'no_of_child', 'offer_price','discount_percent','base_price','start_date','end_date','additional_price'];
 
     public function sluggable()
     {
@@ -45,7 +45,7 @@ class RoomType extends Model implements HasMedia
 
     public function inclusions(){
 
-        return $this->belongsToMany(Amenity::class, 'inclusion_room_type', 'room_type_id');
+        return $this->belongsToMany(Inclusion::class, 'inclusion_room_type', 'room_type_id');
 
     }
 
@@ -57,6 +57,11 @@ class RoomType extends Model implements HasMedia
     public function rooms(){
         return $this->hasMany(Room::class,'room_type_id');
     }
+
+    public function room_type_prices(){
+        return $this->hasMany(RoomTypePrice::class,'room_type_id');
+    }
+
 
     //Mediacollection to hold only one file
     public function registerMediaCollections()
@@ -72,14 +77,22 @@ class RoomType extends Model implements HasMedia
         return $this->getFirstMedia('feature_image');
     }
 
+    public function featureMultipleImage()
+    {
+        return $this->getFirstMedia();
+    }
+
     //Register Media conversion
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumbnail')
-              ->width(350)
-              ->height(200)
-              ->sharpen(10);
+            ->width(350)
+            ->height(200)
+            ->sharpen(10);
     }
+
+
+
 
     // Not used
     // public function images()

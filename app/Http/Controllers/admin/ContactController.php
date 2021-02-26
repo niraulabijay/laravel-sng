@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Model\Contact;
 use App\Model\PackageSubmission;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use PDO;
 
@@ -38,5 +39,23 @@ class ContactController extends Controller
         }else{
             return response()->json("Submission not found",400);
         }
+    }
+
+    public function packageDelete($id)
+    {
+        $package = optional(PackageSubmission::find($id))->delete();
+        if($package)
+        {
+            Toastr::success('Package has been deleted successfully', 'Operation Success');
+        }
+        return redirect()->back();
+    }   
+
+    public function contactDelete($id)
+    {
+        $contact = Contact::find($id);
+        $contact->delete();
+        Toastr::success('Contact has been deleted successfully', 'Operation Success');
+        return redirect()->back();
     }
 }

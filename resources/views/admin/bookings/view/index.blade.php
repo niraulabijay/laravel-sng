@@ -67,8 +67,16 @@
                             <div class="form-group">
                                 <label>Booking Status:</label>
                                 @foreach(\App\Model\Booking::listStatus() as $key=>$status)
+{{--                                     
                                     <div>
                                         <input type="checkbox" class="statusCheckbox" name="status[]" value="{{$key}}">&nbsp;{{ $status }}
+                                    </div> --}}
+                                    <div class="form-check">
+                                        <input type="radio" class="statusCheckbox" name="status[]" value="{{$key}}">&nbsp;{{ $status }}
+                                        {{-- <input class="form-check-input statusCheckbox" type="radio" name="status[]" id="exampleRadios1" value="{{$key}}">
+                                        <label class="form-check-label" for="exampleRadios1">
+                                            {{ $status }}
+                                        </label> --}}
                                     </div>
                                 @endforeach
 
@@ -117,12 +125,12 @@
  
     <!-- DatePicker JS -->
     <script>
-        $('input[name="searchStart"]').val(moment().subtract(10, "days").format('YYYY-MM-DD'));
-        $('input[name="searchEnd"]').val(moment().add(10, 'days').format('YYYY-MM-DD'));
+        $('input[name="searchStart"]').val(moment().subtract(0, "days").format('YYYY-MM-DD'));
+        $('input[name="searchEnd"]').val(moment().add(1, 'days').format('YYYY-MM-DD'));
         $('.range-date').daterangepicker({
             autoApply: true,
-            startDate: moment().subtract(10, "days"),
-            endDate: moment().add(10, 'days'),
+            startDate: moment().subtract(0, "days"),
+            endDate: moment().add(1, 'days'),
             // maxSpan: {
             //     "days": 16
             // },
@@ -230,6 +238,27 @@
                 }
             });
         }
+        function editBooking(el)
+        {
+        
+            let status = $('#booking_select'+el).val();
+        
+            var url = "{{route('admin.booking.status.update',":el")}}"
+         
+            $.ajax({
+                type: 'put',
+                url: url,
+                data:{status:status,"_token":"{{csrf_token()}}",id:el},
+                success: function(data)
+                {
+                    $('#exampleModal'+el).modal('hide');
+                
+                },
+
+            });
+            
+            //  $('#booking-update'+el).submit();
+        }
     </script>
     <script>
         function activeBooking(el)
@@ -243,10 +272,11 @@
                 data:{data:id,"_token":"{{csrf_token()}}"},
                 success: function(data)
                 {
-
+                    $('.booking-container').html(data.view);
                 },
 
             })
         }
     </script>
+
 @endpush

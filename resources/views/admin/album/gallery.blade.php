@@ -184,7 +184,8 @@
         });
 
         $.ajax({
-            url: '{{ route("admin.album.upload_gallery",$album->id)}}',
+            url: '{{ route("admin.album.upload_
+            ",$album->id)}}',
             contentType: false,
             processData: false,
             method: 'POST',

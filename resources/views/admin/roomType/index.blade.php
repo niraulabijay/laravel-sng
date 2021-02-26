@@ -72,13 +72,22 @@
                                                             <button data-id="{{$roomType->id}}" data-toggle="modal" data-target="#deleteRoomType" class="deleteRoomButton btn btn-danger  rounded-circle">
                                                                 <i class="fa fa-trash"></i>
                                                             </button>
+                                                            <a href="{{ route('admin.roomType.image',$roomType->slug)}}" class="editFaq btn btn-warning rounded-circle">
+                                                                <i class="fa fa-image"></i>
+                                                            </a>
                                                         </div>
                                                         <div>
+                                                            @if($roomType->featureImage())
+                                                      
                                                             <img src="{{ asset($roomType->featureImage()->getUrl('thumbnail')) }}" style="height: 150px; width:auto;" alt="Room Type Feature Image">
+
+                                                            @elseif($roomType->featureMultipleImage())
+                                                            <img src="{{ asset($roomType->featureMultipleImage()->getUrl('thumbnail')) }}" style="height: 150px; width:auto;" alt="Room Type Feature Image">
+                                                            
+                                                            @endif
+                                                            
                                                         </div>
-                                                        <div class="card-text">
-                                                            {{$roomType->description}}
-                                                        </div>
+                                                      
                                                     </div>
                                                     <div class="col-7">
                                                         <div class="alert alert-light-warning mb-4" role="alert" style="min-height: 200px">

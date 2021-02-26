@@ -1,5 +1,6 @@
 <?php
 
+use App\Model\Album;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use App\Model\PostType;
@@ -113,7 +114,12 @@ function returnExpression(){
 
 }
 
-
+function getAlbum()
+{
+    $album = Album::where('status',1)->orderBy('id','DESC')->get();
+    
+    return $album;
+}
 function getPostTypes(){
 
     $postTypes = PostType::where('status', 'Active')->orderBy('position', 'ASC')->get();

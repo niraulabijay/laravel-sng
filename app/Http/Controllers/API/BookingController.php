@@ -11,6 +11,7 @@ use App\Model\Room;
 use App\Model\RoomType;
 use App\Repositories\booking\BookingInterface;
 use App\Repositories\user\CustomerInterface;
+use Carbon\Carbon;
 use Cartalyst\Sentinel\Users\UserInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -70,7 +71,7 @@ class BookingController extends Controller
         $validated = $request->validate([
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'regionOption' => 'required',
+            'regionOption' => '',
             'email' => 'required',
             'occupancy' => 'required',
             'startDate'=>'',
@@ -97,11 +98,13 @@ class BookingController extends Controller
                 ]);
             }
             $validated['user_id'] = $user->id;
+            $roomType = RoomType::find(11);
+       
             $booking = $this->bookingRepo->apiBooking($user,$validated);
             if($booking)
             {
-                //DB::commit();
-                DB::rollBack();
+                DB::commit();
+                // DB::rollBack();
                 $success = true;
                 return response()->json(["data"=>$booking->getData(),"status"=>$booking->getStatusCode()]);
             }else{

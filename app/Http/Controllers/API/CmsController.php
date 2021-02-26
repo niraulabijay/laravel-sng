@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BasicInfoResource;
+use App\Http\Resources\room\RoomTypeResource;
+use App\Model\Image;
+use App\Model\RoomType;
+use App\Model\SiteSetting;
 use App\Repositories\FrontCms\CmsInterface;
 use Illuminate\Http\Request;
 
@@ -60,6 +65,32 @@ class CmsController extends Controller
         ],200);
     }
 
+    public function recentBlogs()
+    {
+        $blogs = $this->cms->getGlobalPostByPostTypeSlug('blog');
+      
+        return response()->json([
+            'status' => 'success',
+            'recent_blogs' => $this->formatrecentBlogs($blogs->sortByDesc('created_at'))
+        ],200);
+    }
+
+    private function formatrecentBlogs($blogs)
+    {
+        $data = [];
+        foreach($blogs as $blog)
+        {
+            $data[] =
+            [
+                'id' => $blog->id,
+                'slug'=>$blog->slug,
+                'title' => $blog->title,
+                'image'=>$blog->image ? asset($blog->image) : null,
+                'date'=>date('Y-m-d',strtotime($blog->created_at)),
+            ];
+        }
+        return $data;
+    }
     private function formatSinglePackage($package){
         return [
             'id' => $package->id,
@@ -74,6 +105,8 @@ class CmsController extends Controller
             'min_group_size' => $this->cms->getGlobalPostMetaByKey($package, 'min-group-size') ?? null,
             'inclusions' => $this->getSingleValueRepeaterMeta($package, 'inclusions') ?? [],
             'exclusions' => $this->getSingleValueRepeaterMeta($package, 'exclusions') ?? [],
+            'note' => $this->cms->getGlobalPostMetaByKey($package, 'note') ?? null,
+         
         ];
     }
 
@@ -112,13 +145,14 @@ class CmsController extends Controller
         ],200);
     }
 
+
     private function formatVideo($videos){
         $data = [];
         foreach($videos as $video){
             $data[] = [
                 'title' => $video->title,
                 'description' => $video->post_content,
-                'youtube-url' => $this->cms->getGlobalPostMetaByKey($video,'video-url')
+                'youtube_url' => $this->cms->getGlobalPostMetaByKey($video,'video-url')
             ];
         }
         return $data;
@@ -137,9 +171,20 @@ class CmsController extends Controller
         }
         // dd($restaurantCategories);
         $foodCategories = $this->formatRestaurant($restaurantCategories);
+        $resturant_title = SiteSetting::where('key','resturant_title')->first();
+        $resturant_slider_1 = SiteSetting::where('key','resturant_slider_1')->first();
+        $resturant_slider_2 = SiteSetting::where('key','resturant_slider_2')->first();
+        $resturant_slider_3 = SiteSetting::where('key','resturant_slider_3')->first();
+
         return response()->json([
             'status' => 'success',
-            'foodCategories' => $foodCategories
+            'title' => $resturant_title->value,
+            'foodCategories' => $foodCategories,
+            'sliders'=>[
+                'slider_1' => $resturant_slider_1->value ? asset($resturant_slider_1->value)  : null,
+                'slider_2' => $resturant_slider_2->value ? asset($resturant_slider_2->value) : null,
+                'slider_3' => $resturant_slider_3->value ? asset($resturant_slider_3->value) : null,
+            ]
         ],200);
     }
 
@@ -150,7 +195,9 @@ class CmsController extends Controller
                 'title' => $food->title,
                 'description' => $food->post_content,
                 'image' => $food->image ? asset($food->image) : null,
-                'price' => $this->cms->getGlobalPostMetaByKey($food,'price')
+                'price' => $this->cms->getGlobalPostMetaByKey($food,'price'),
+                'offer_price' => $this->cms->getGlobalPostMetaByKey($food,'offer-price'),
+
             ];
         }
         return $data;
@@ -160,6 +207,7 @@ class CmsController extends Controller
         $data = [];
         foreach($categories as $category){
             $data[] = [
+                
                 'title' => $category->title,
                 'slug' => $category->slug,
                 'description' => $category->post_content,
@@ -189,9 +237,15 @@ class CmsController extends Controller
     }
     private function formatTeam($teams){
         $data = [];
+        $ourTeam = SiteSetting::where('key','team_description')->first();
+        $data['heading'] = [
+            'team_description' => $ourTeam->value
+        ];
         foreach($teams as $team)
         {
-            $data[] = [
+        
+            $data['teams'][] = [
+                
                 'title' => $team->title,
                 'description' => $team->post_content,
                 'image' => $team->image ? asset($team->image) : null,
@@ -211,10 +265,19 @@ class CmsController extends Controller
                 'description' => $blog->post_content,
                 'image' => $blog->image ? asset($blog->image) : null,
                 'slug'=>$blog->slug,
-                'date'=>date('Y-m-d',strtotime($blog->created_at))
+                'date'=>date('Y-m-d',strtotime($blog->created_at)),
+                'author' => $this->cms->getGlobalPostMetaByKey($blog,'author') ?? null,
+    
             ];
         }
         return $data;
     }
+
+    public function singleRoomType($id)
+    {
+        return (new RoomTypeResource(RoomType::find($id)));
+    }
+
+
 
 }

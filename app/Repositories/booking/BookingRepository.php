@@ -9,6 +9,7 @@ use App\Model\RoomType;
 use App\Notifications\BookingSuccess;
 use App\Repositories\EloquentRepository;
 use App\Repositories\booking\BookingInterface;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class BookingRepository extends EloquentRepository implements BookingInterface{
@@ -37,7 +38,8 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
 
     
 
-    public function availableRooms($data = []){
+    public function availableRooms($data = [])
+    {
         $checkIn = $data['checkIn'];
         $checkOut = $data['checkOut'];
      
@@ -48,7 +50,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
                     ->where('check_out', '>', $checkIn)
                     ->where('check_out','<=',$checkOut)
                     ->whereIn('status',[1,2,3]);
-                    
+
                 })
                 ->orWhere(function ($q2) use ($checkIn, $checkOut) {
                     $q2->where('check_in', '>=', $checkIn)
@@ -177,20 +179,40 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     {
         
         $data['user_id'] = $user->id;
-        $booking = $this->BookingApiStore($data);
+        $discount_amount = 0;
         $room = RoomType::with('rooms')->find($data['room_id']);
+
+        if($room->tax_status)
+        {
+            $data['tax'] = getSiteSetting('tax_value');
+        }
+        else
+        {
+            $data['tax'] = 0;
+        }
+        if(RoomType::where('id' , $room->id)->where('end_date', '>=',  Carbon::now()->toDateString())
+        ->exists() && $room->offer_price != 0)
+        {
+            $discount_amount = $room->offer_price;
+        }
+        else if(RoomType::where('id' , $room->id)->where('end_date', '>=',  Carbon::now()->toDateString())
+        ->exists() && $room->discount_percent !=0)
+        {
+            $discount_amount = ($room->discount_percent/100)*$room->base_price;
+        }
+        $booking = $this->BookingApiStore($data);
         $data['checkIn'] = $data['startDate'];
-        $data['checkOut'] = $data['endDate'] ;
+        $data['checkOut'] = $data['endDate'];
         $available_rooms = $this->availableRooms($data);
         $all_rooms = RoomType::where('id',$data['room_id'])->where('status','Active')->get();
         $room_search = $this->availableRoomsType($data,$all_rooms);
-      
+        
         $room_type_filter = [];
         if($room_search && $available_rooms)
         {
             
             $pending_room= collect($room_search)->first()->rooms;
-         
+
             // $confirm_room = $pending_room->merge($available_rooms);
             // $confirm_room = $confirm_room->unique(function ($item) {
 
@@ -233,20 +255,22 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         $bookingDetails = null;
         if($room_type_filter)
         {
-            foreach($data['occupancy'] as $key=>$guest){
+            foreach($data['occupancy'] as $key=>$guest)
+            {
 
                 $bookingDetails = BookingDetail::create([
                     'booking_id'=>$booking->id,
                     'room_id' => $room_type_filter[$key]['id'],
                     'guests' => $guest['adult'] + $guest['child'],
                     'allocated_price' => $data['room_price'] ?? 0,
+                    'discount_amount' =>  $discount_amount
                 ]);
-             
+
             }
         }
         else
         {
-           
+
             DB::rollBack(); 
             return response()->json("room is already booked",500);
         }
@@ -298,7 +322,9 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
             'country' => $data['regionOption'] ?? null,
             'phone' => $data['phone'] ?? null,
             'message' => $data['message'] ?? null,
-            'gender' => $data['radioOption'] ?? null
+            'gender' => $data['radioOption'] ?? null,
+            'tax'=> $data['tax']
+         
         ]);
     }
     
@@ -318,7 +344,7 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
         if(count($params['status']) > 0){
             $bookings = $bookings->whereIn('status',$params['status']);
         }
-        $bookings = $bookings->get();
+        $bookings = $bookings->orderBy('id','desc')->get();
         return $bookings;
     }
 
@@ -341,17 +367,26 @@ class BookingRepository extends EloquentRepository implements BookingInterface{
     public function updateBooking($booking,$request)
     {    
        $booking = Booking::findOrFail($booking['data']);
-       if($booking->status)
+       if($booking->status == 1)
        {
-            $booking->status =0;
+            $booking->status =3;
        }
        else
        {
         $booking->status = 1;
        }
-    
+       
        $booking->update([$booking]);
        return response()->json($booking);
+    }
+
+    public function updateBookingStatus($request)
+    {
+        $booking = Booking::findOrFail($request['id']);
+        $booking->status = $request['status'];
+        $booking->update([$booking]);
+        return response()->json($booking);
+
     }
 
 }

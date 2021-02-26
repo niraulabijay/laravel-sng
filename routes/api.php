@@ -32,7 +32,6 @@ Route::group([
     // Route::get('/brand/front/{slug}','BrandController@getFrontData');
     // Route::get('/destinations','FrontController@destinations');
     Route::get('/faqs','FrontController@faqs');
-
     Route::get('/packages','CmsController@packages');
     Route::get('/package/single/{slug}','CmsController@singlePackage');
     Route::get('/video-gallery','CmsController@videoGallery');
@@ -41,15 +40,21 @@ Route::group([
     Route::get('/gallery','FrontController@gallery');
     Route::get('/blogs','CmsController@blogs');
     Route::get('blog/single/{slug}','CmsController@singleBlog');
-
+    Route::get('recent_blogs','CmsController@recentBlogs');
+    Route::get('/contact_page','SiteController@contactPage');
     Route::get('/homepage','SiteController@homepage');
     Route::get('/aboutpage','SiteController@aboutpage');
+    Route::get('/basicinfo','SiteController@basicInfo');
+
     //Booking
     Route::post('/booking','BookingController@search');
+    
     Route::post('create/booking','BookingController@store');
     //contact
+    Route::get('single/room_type/{id}','CmsController@singleRoomType');
     Route::post('/contact/send','ContactController@create');
     Route::post('/package-submit','ContactController@postPackage');
+    Route::get('pop-images','PopController@index');
 
     Route::group([
         'middleware' => 'jwt-auth'
